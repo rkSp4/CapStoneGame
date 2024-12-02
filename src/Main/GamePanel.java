@@ -7,7 +7,6 @@ import java.awt.*;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
-
     final int originalTitleSize = 16;
     final int scale = 3;
 
@@ -27,11 +26,12 @@ public class GamePanel extends JPanel implements Runnable {
 
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
+    sound sound = new sound();
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
-    public AssetSetter aSetter = new AssetSetter(this);
+    //public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[10];
+    //public SuperObject obj[] = new SuperObject[10];
 
 
     //player default pos
@@ -46,15 +46,18 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
     }
-
-    public void setupGame() {
-      aSetter.setObject();
+    public void setUpGame(){
+        playMusic(0);
     }
-
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
+
     }
+
+//    public void setupGame() {
+//        aSetter.setObject();
+//    }
     @Override
     public void run(){
 
@@ -118,6 +121,19 @@ public class GamePanel extends JPanel implements Runnable {
         tileM.draw(a2);
         player.draw(a2);
         a2.dispose();
+
+    }
+    public void playMusic(int i){
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+    }
+    public void playSE(int i){
+        sound.setFile(i);
+        sound.play();
 
     }
 }

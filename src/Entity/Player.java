@@ -78,7 +78,7 @@ public class Player extends Entity{
                 switch (direction) {
                     case "up":
                         worldY -= speed;
-                        worldY = worldY - speed;
+                        //worldY = worldY - speed;
                         break;
                     case "down":
                         worldY += speed;
