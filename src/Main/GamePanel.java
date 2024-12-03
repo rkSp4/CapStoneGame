@@ -25,14 +25,20 @@ public class GamePanel extends JPanel implements Runnable {
     int fps = 60;
 
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     sound sound = new sound();
+    public UI ui = new UI(this);
     Thread gameThread;
     public CollisionChecker cChecker = new CollisionChecker(this);
     //public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
     //public SuperObject obj[] = new SuperObject[10];
 
+    public int gameState;
+    public final int titleState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
+//    public final int dialogueState = 3;
 
     //player default pos
     int playx = 100;
@@ -49,6 +55,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setUpGame(){
         playMusic(0);
+        //aSetter.setObject();
+        gameState = titleState;
     }
     public void startGameThread(){
         gameThread = new Thread(this);
@@ -56,9 +64,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-//    public void setupGame() {
-//        aSetter.setObject();
-//    }
     @Override
     public void run(){
 
@@ -114,15 +119,35 @@ public class GamePanel extends JPanel implements Runnable {
         } */
     }
     public void update(){
-        player.update();
+        if(gameState == playState) {
+            player.update();
+        }
+        if(gameState == pauseState){
+            //nothing
+        }
     }
+
     public void paintComponent(Graphics a) {
         super.paintComponent(a);
         Graphics2D a2 = (Graphics2D) a;
-        tileM.draw(a2);
-        player.draw(a2);
-        a2.dispose();
 
+
+
+        //TITLE
+        if(gameState == titleState){
+            ui.draw(a2);
+        }else{
+            //TILE
+            tileM.draw(a2);
+
+            //PLAYER
+            player.draw(a2);
+
+            //UI
+            ui.draw(a2);
+        }
+
+        a2.dispose();
     }
     public void playMusic(int i){
         sound.setFile(i);
