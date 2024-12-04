@@ -1,11 +1,16 @@
 package Main;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import Object.OBJ_KEY;
 
 public class UI {
 
     GamePanel gp;
     Graphics2D g2;
+    BufferedImage keyI;
+    int messagectr = 0;
+
     Font arial_40, arial_80B;
     // BufferedImage keyImage;
     public boolean messageOn = false;
@@ -23,6 +28,9 @@ public class UI {
 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
+        OBJ_KEY key = new OBJ_KEY();
+        keyI = key.image;
+
     }
 
     public void showMessage(String text){
@@ -34,6 +42,8 @@ public class UI {
         this.g2 = g2;
         g2.setFont(arial_40);
         g2.setColor(Color.white);
+        g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+        g2.drawString("x " + gp.player.haskey, 74, 65);
 
         //TITLE STATE
         if(gp.gameState == gp.titleState){
@@ -45,6 +55,20 @@ public class UI {
         }//PAUSE STATE
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
+        }
+
+        if(messageOn == true)
+        {
+            g2.setFont(g2.getFont().deriveFont(30F));
+            g2.drawString(message, gp.tileSize/2, gp.tileSize*5 );
+
+            messagectr++;
+
+            if(messagectr > 120)
+            {
+                messagectr = 0;
+                messageOn = false;
+            }
         }
     }
 

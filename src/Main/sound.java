@@ -9,7 +9,14 @@ public class sound {
     URL soundURL[] = new URL[30];
     public sound(){
 
-        soundURL[0] = getClass().getResource("/sound/bkgMusic.wav");
+        soundURL[0] = getClass().getResource("/sound/village.wav");
+        soundURL[1] = getClass().getResource("/sound/coin.wav");
+        soundURL[2] = getClass().getResource("/sound/powerup.wav");
+        soundURL[3] = getClass().getResource("/sound/unlock.wav");
+        soundURL[4] = getClass().getResource("/sound/fanfare.wav");
+
+
+
     }
     public void setFile(int i){
         try{
