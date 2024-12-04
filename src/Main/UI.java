@@ -47,6 +47,7 @@ public class UI {
             drawPauseScreen();
         }
     }
+
     public void drawTitleScreen(){
         if(titleScreenState == 0){
             g2.setColor(new Color(70, 120 , 80));
