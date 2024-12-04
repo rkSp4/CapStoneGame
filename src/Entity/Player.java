@@ -14,6 +14,7 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
+    public int haskey = 0;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -27,6 +28,8 @@ public class Player extends Entity{
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 16;
+        SolidAreaDefaultX = solidArea.x;
+        SolidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 16;
 
@@ -74,6 +77,9 @@ public class Player extends Entity{
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
+
+           int objIndex = gp.cChecker.checkObject(this, true);
+            pickUp0bject(objIndex);
             if(collisionOn == false) {
                 switch (direction) {
                     case "up":
@@ -105,6 +111,48 @@ public class Player extends Entity{
         }
 
     }
+
+    public void pickUp0bject(int i){
+            if(i != 999)
+            {
+                String objectName = gp.obj[i].name;
+
+                switch (objectName)
+                {
+                    case "key":
+                        gp.playSE(1);
+                        haskey++;
+                        gp.obj[i] = null;
+                        gp.ui.showMessage("You got a key!");
+                        break;
+                    case "door":
+
+                        if(haskey > 0)
+                        {
+                            gp.playSE(3);
+                            gp.obj[i] = null;
+                            haskey--;
+                            gp.ui.showMessage("You have opened the door!");
+                        }else {
+                            gp.ui.showMessage("You need a key dawg! :/");
+                        }
+                        break;
+                    case "chest":
+                        gp.ui.gameFinished = true;
+                        gp.stopMusic();
+                        gp.playSE(4);
+                        gp.ui.showMessage("CONGRATULATIONS!!! :>");
+                        break;
+                    case "boots":
+                        gp.playSE(2);
+                        speed += 1;
+                        gp.obj[i] = null;
+                        gp.ui.showMessage("Speed up by 1.25x!");
+                        break;
+                }
+            }
+    }
+
     public void draw(Graphics a2) {
         //   a2.setColor(Color.red);
         //   a2.fillRect(x, y, gp.tileSize, gp.tileSize);
