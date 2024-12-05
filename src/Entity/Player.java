@@ -53,6 +53,8 @@ public class Player extends Entity{
             left2 = ImageIO.read(getClass().getResourceAsStream("/player/cat_left_2.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/player/cat_right_1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/player/cat_right_2.png"));
+            tab = ImageIO.read(getClass().getResourceAsStream("/player/tab.png"));
+            white = ImageIO.read(getClass().getResourceAsStream("/player/white.png"));
         }
         catch(IOException e) {
             e.printStackTrace();

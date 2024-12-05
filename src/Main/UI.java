@@ -42,8 +42,7 @@ public class UI {
         this.g2 = g2;
         g2.setFont(arial_40);
         g2.setColor(Color.white);
-        g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-        g2.drawString("x " + gp.player.haskey, 74, 65);
+
 
         //TITLE STATE
         if(gp.gameState == gp.titleState){
@@ -51,7 +50,8 @@ public class UI {
         }
         //PLAY STATE
         if(gp.gameState == gp.playState){
-
+            g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+            g2.drawString("x " + gp.player.haskey, 74, 65);
         }//PAUSE STATE
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
@@ -132,16 +132,18 @@ public class UI {
             g2.drawString(text, x, y);
 
             text = "CAT1";
-            x = getXtoCenter(text);
-            y += gp.tileSize*3;
+            x = gp.tileSize*4;
+            y = gp.tileSize*9;
             g2.drawString(text, x, y);
+            g2.drawImage(gp.player.tab, x - gp.tileSize, y-gp.tileSize*5, gp.tileSize*4, gp.tileSize*4, null);
             if(commandNum == 0){
                 g2.drawString(">", x-gp.tileSize, y);
             }
 
             text = "CAT2";
-            x = getXtoCenter(text);
-            y += gp.tileSize;
+            x += gp.tileSize*6;
+            y = gp.tileSize*9;
+            g2.drawImage(gp.player.white, x - gp.tileSize, y-gp.tileSize*5, gp.tileSize*4, gp.tileSize*4, null);
             g2.drawString(text, x, y);
             if(commandNum == 1){
                 g2.drawString(">", x-gp.tileSize, y);
@@ -165,6 +167,35 @@ public class UI {
         int y = gp.screenHeight/2;
 
         g2.drawString(text, x, y);
+        //commandNum = 0;
+
+        g2.setColor(Color.WHITE);
+        g2.setFont(g2.getFont().deriveFont(42F));
+        //CONTINUE GAME
+        text = "CONTINUE";
+        x = getXtoCenter(text);
+        y = gp.tileSize*9;
+        g2.drawString(text, x, y);
+        if(commandNum == 0){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+        //TITLE SCREEN
+        text = "TITLE SCREEN";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if(commandNum == 1){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
+        //QUIT GAME
+        text = "EXIT GAME";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if(commandNum == 2){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
     }
     public int getXtoCenter(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
