@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Player player = new Player(this, keyH);
     //public SuperObject obj[] = new SuperObject[10];
-    public SuperObject obj[] = new SuperObject[10];
+    public SuperObject[] obj = new SuperObject[10];
 
     public int gameState;
     public final int titleState = 0;
@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run(){
 
-        double drawInterval = 1000000000/fps;
+        double drawInterval = 1000000000.0/fps;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currTime;

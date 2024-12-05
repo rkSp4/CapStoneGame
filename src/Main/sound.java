@@ -6,7 +6,7 @@ import javax.sound.sampled.Clip;
 
 public class sound {
     Clip clip;
-    URL soundURL[] = new URL[30];
+    URL[] soundURL = new URL[30];
     public sound(){
 
         soundURL[0] = getClass().getResource("/sound/village.wav");
@@ -22,6 +22,7 @@ public class sound {
             clip = AudioSystem.getClip();
             clip.open(ais);
         }catch(Exception e){
+
         }
     }
     public void play(){
