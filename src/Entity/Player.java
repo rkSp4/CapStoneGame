@@ -2,13 +2,17 @@ package Entity;
 
 import Main.GamePanel;
 import Main.KeyHandler;
+import Main.UtilityTool;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.sql.SQLOutput;
 
 public class Player extends Entity{
+
 
     KeyHandler keyH;
 
@@ -45,22 +49,16 @@ public class Player extends Entity{
     }
 
     public void getPlayerImage() {
-        try {
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/cat_up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/cat_up_2.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/cat_down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/cat_down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/cat_left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/cat_left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/cat_right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/cat_right_2.png"));
-            tab = ImageIO.read(getClass().getResourceAsStream("/player/tab.png"));
-            white = ImageIO.read(getClass().getResourceAsStream("/player/white.png"));
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+        up1 = setup("/player/cat_up_1");
+        up2 = setup("/player/cat_up_2");
+        down1 = setup("/player/cat_down_1");
+        down2 = setup("/player/cat_down_2");
+        left1 = setup("/player/cat_left_1");
+        left2 = setup("/player/cat_left_2");
+        right1 = setup("/player/cat_right_1");
+        right2 = setup("/player/cat_right_2");
     }
+
 
     public void update() {
 
@@ -170,17 +168,17 @@ public class Player extends Entity{
                         gp.ui.showMessage("You have become sneaky!");
                         break;
                 }
+            if(i != 999) {
             }
     }
-
-    public void interactNPC(int i){
-        if(i != 999){
-            //if(hasClaw > 0){
-                //gp.stopMusic();
-                //gp.playMusic(); gameover music
-                gp.gameState = gp.overState;
-            //}
+    public void interactNPC(int i) {
+        if(i != 999) {
+            if(gp.keyH.enterPressed == true) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics a2) {
@@ -222,6 +220,6 @@ public class Player extends Entity{
                 }
                 break;
         }
-        a2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+        a2.drawImage(image, screenX, screenY, null);
     }
 }

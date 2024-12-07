@@ -1,16 +1,14 @@
 package Main;
 
-import Entity.Player;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Key;
 
 public class KeyHandler implements KeyListener{
-    Player player;
+
     GamePanel gp;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
     boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp){
@@ -177,6 +175,12 @@ public class KeyHandler implements KeyListener{
                 if (gp.ui.commandNum == 1) {
                     System.exit(0);
                 }
+            }
+        }
+        //DIALOGUE STATE
+        if(gp.gameState == gp.dialogueState) {
+            if(code == KeyEvent.VK_ENTER) {
+                gp.gameState = gp.playState;
             }
         }
     }
