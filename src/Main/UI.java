@@ -12,24 +12,24 @@ public class UI {
     int messagectr = 0;
 
     Font arial_40, arial_80B;
-    // BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
+    public String currentDialogue = "";
     public int commandNum = 0;
     public int titleScreenState = 0;
 
-    double playTime;
-    DecimalFormat dFormat = new DecimalFormat("#0.00");
+   // double playTime;
+   // DecimalFormat dFormat = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp) {
         this.gp = gp;
 
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
-        OBJ_KEY key = new OBJ_KEY(gp);
-        keyI = key.image;
+    //    OBJ_KEY key = new OBJ_KEY(gp);
+    //    keyI = key.image;
 
     }
 
@@ -51,10 +51,15 @@ public class UI {
         //PLAY STATE
         if(gp.gameState == gp.playState){
             g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-            g2.drawString("x " + gp.player.haskey, 74, 65);
+            g2.drawString("x " + gp.player, 74, 65);
         }//PAUSE STATE
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
+        }
+
+        //DIALOGUE
+        if(gp.gameState == gp.dialogueState) {
+            drawDialogueScreen();
         }
 
         if(messageOn == true)
@@ -196,6 +201,34 @@ public class UI {
         if(commandNum == 2){
             g2.drawString(">", x-gp.tileSize, y);
         }
+    }
+
+    public void drawDialogueScreen() {
+        //WINDOW
+        int x = gp.tileSize*2;
+        int y = gp.tileSize/2;
+        int width = gp.screenWidth - (gp.tileSize*4);
+        int height = gp.tileSize*4;
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
+        x += gp.tileSize;
+        y += gp.tileSize;
+
+        for(String line : currentDialogue.split("\n")) {
+            g2.drawString(line, x, y);
+            y += 40;
+        }
+    }
+    public void drawSubWindow(int x, int y, int width, int height) {
+        Color c = new Color(0, 0, 0, 140);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+
+        c = new Color(255, 255, 0);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5, y+5, -10, -10, 25, 25);
     }
     public int getXtoCenter(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();

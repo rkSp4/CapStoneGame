@@ -12,17 +12,17 @@ import java.nio.Buffer;
 
 public class Player extends Entity{
 
-    GamePanel gp;
+
     KeyHandler keyH;
 
     public final int screenX;
     public final int screenY;
-    public int haskey = 0;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
-        this.gp = gp;
+        super(gp);
+
         this.keyH = keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -47,29 +47,16 @@ public class Player extends Entity{
     }
 
     public void getPlayerImage() {
-        up1 = setup("cat_up_1");
-        up2 = setup("cat_up_2");
-        down1 = setup("cat_down_1");
-        down2 = setup("cat_down_2");
-        left1 = setup("cat_left_1");
-        left2 = setup("cat_left_2");
-        right1 = setup("cat_right_1");
-        right2 = setup("cat_right_2");
+        up1 = setup("/player/cat_up_1");
+        up2 = setup("/player/cat_up_2");
+        down1 = setup("/player/cat_down_1");
+        down2 = setup("/player/cat_down_2");
+        left1 = setup("/player/cat_left_1");
+        left2 = setup("/player/cat_left_2");
+        right1 = setup("/player/cat_right_1");
+        right2 = setup("/player/cat_right_2");
     }
 
-    BufferedImage setup(String imageName) {
-        UtilityTool uTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
-    }
 
     public void update() {
 
@@ -91,6 +78,10 @@ public class Player extends Entity{
 
            int objIndex = gp.cChecker.checkObject(this, true);
             pickUp0bject(objIndex);
+
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
             if(collisionOn == false) {
                 switch (direction) {
                     case "up":
@@ -124,44 +115,17 @@ public class Player extends Entity{
     }
 
     public void pickUp0bject(int i){
-            if(i != 999)
-            {
-                String objectName = gp.obj[i].name;
-
-                switch (objectName)
-                {
-                    case "key":
-                        gp.playSE(1);
-                        haskey++;
-                        gp.obj[i] = null;
-                        gp.ui.showMessage("You got a key!");
-                        break;
-                    case "door":
-
-                        if(haskey > 0)
-                        {
-                            gp.playSE(3);
-                            gp.obj[i] = null;
-                            haskey--;
-                            gp.ui.showMessage("You have opened the door!");
-                        }else {
-                            gp.ui.showMessage("You need a key dawg! :/");
-                        }
-                        break;
-                    case "chest":
-                        gp.ui.gameFinished = true;
-                        gp.stopMusic();
-                        gp.playSE(4);
-                        gp.ui.showMessage("CONGRATULATIONS!!! :>");
-                        break;
-                    case "boots":
-                        gp.playSE(2);
-                        speed += 1;
-                        gp.obj[i] = null;
-                        gp.ui.showMessage("Speed up by 1.25x!");
-                        break;
-                }
+            if(i != 999) {
             }
+    }
+    public void interactNPC(int i) {
+        if(i != 999) {
+            if(gp.keyH.enterPressed == true) {
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
+        }
+        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics a2) {
