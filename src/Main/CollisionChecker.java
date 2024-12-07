@@ -227,6 +227,7 @@ public class    CollisionChecker {
 
         return index;
     }
+
     public void checkPlayer(Entity entity){
         //get entity solid area pos
         entity.solidArea.x = entity.worldX + entity.solidArea.x;
@@ -235,7 +236,8 @@ public class    CollisionChecker {
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
 
-        switch(entity.direction) {
+        switch(entity.direction)
+        {
             case "up":
                 entity.solidArea.y -= entity.speed;
                 if(entity.solidArea.intersects(gp.player.solidArea)){
@@ -266,20 +268,11 @@ public class    CollisionChecker {
                 break;
         }
 
-    //AYAW NI HILABTA SIGEG NULL POINTER ;-;
-    entity.solidArea.x = entity.SolidAreaDefaultX;
-    entity.solidArea.y = entity.SolidAreaDefaultY;
-    gp.player.solidArea.x = gp.player.SolidAreaDefaultX;
-    gp.player.solidArea.y = gp.player.SolidAreaDefaultY;
 
-//        if (entity != null && entity.solidArea != null) {
-//            entity.solidArea.x = entity.SolidAreaDefaultX;
-//            entity.solidArea.y = entity.SolidAreaDefaultY;
-//        }
-//
-//        if (gp.player != null && i >= 0 && i < gp.player.length && gp.player[i] != null && gp.player[i].solidArea != null) {
-//            gp.player.solidArea.x = gp.player.SolidAreaDefaultX;
-//            gp.player.solidArea.y = gp.player.SolidAreaDefaultY;
-//        }
+    //AYAW NI HILABTA SIGEG NULL POINTER ;-;
+            entity.solidArea.x = entity.SolidAreaDefaultX;
+            entity.solidArea.y = entity.SolidAreaDefaultY;
+            gp.player.solidArea.x = gp.player.SolidAreaDefaultX;
+            gp.player.solidArea.y = gp.player.SolidAreaDefaultY;
     }
 }

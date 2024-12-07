@@ -5,6 +5,9 @@ import Object.OBJ_KEY;
 import Object.OBJ_DOOR;
 import Object.OBJ_BOOTS;
 import Object.OBJ_CHEST;
+import Object.OBJ_SHADOW;
+import Object.OBJ_CLAWS;
+
 
 public class AssetSetter{
 
@@ -46,6 +49,13 @@ public class AssetSetter{
         gp.obj[7].worldX = 37 * gp.tileSize;
         gp.obj[7].worldY = 42 * gp.tileSize;
 
+        gp.obj[8] = new OBJ_CLAWS();
+        gp.obj[8].worldX = gp.tileSize*24;
+        gp.obj[8].worldY = gp.tileSize*24;
+
+        gp.obj[9] = new OBJ_SHADOW();
+        gp.obj[9].worldX = gp.tileSize*25;
+        gp.obj[9].worldY = gp.tileSize*23;
 
     }
 

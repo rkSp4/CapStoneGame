@@ -202,8 +202,7 @@ public class UI {
     }
 
     public void drawOverScreen(){
-        gp.stopMusic();
-        //gp.playMusic(n); game over music
+
         g2.setColor(new Color(0, 0 , 0));
         g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
         //NAME

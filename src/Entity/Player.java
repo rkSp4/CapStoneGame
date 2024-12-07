@@ -15,6 +15,7 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     public int haskey = 0;
+    public int hasClaw = 0;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -155,7 +156,18 @@ public class Player extends Entity{
                         gp.playSE(2);
                         speed += 1;
                         gp.obj[i] = null;
-                        gp.ui.showMessage("Speed up by 1.25x!");
+                        gp.ui.showMessage("You have become agile!");
+                        break;
+                    case "claws":
+                        gp.playSE(2);
+                        hasClaw++;
+                        gp.obj[i] = null;
+                        gp.ui.showMessage("You have become dangerous!");
+                        break;
+                    case "shadow":
+                        gp.playSE(2);
+                        gp.obj[i] = null;
+                        gp.ui.showMessage("You have become sneaky!");
                         break;
                 }
             }
@@ -163,7 +175,11 @@ public class Player extends Entity{
 
     public void interactNPC(int i){
         if(i != 999){
-            gp.gameState = gp.overState;
+            //if(hasClaw > 0){
+                //gp.stopMusic();
+                //gp.playMusic(); gameover music
+                gp.gameState = gp.overState;
+            //}
         }
     }
 
