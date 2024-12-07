@@ -57,12 +57,14 @@ public class Player extends Entity{
         left2 = setup("/player/cat_left_2");
         right1 = setup("/player/cat_right_1");
         right2 = setup("/player/cat_right_2");
+        tab = setup("/player/tab");
+        white = setup("/player/white");
     }
 
 
     public void update() {
 
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true) {
+        if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
             if (keyH.upPressed) {
                 direction = "up";
@@ -74,7 +76,6 @@ public class Player extends Entity{
                 direction = "right";
             }
 
-            //CHECK TILE COLLISION
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
@@ -87,7 +88,7 @@ public class Player extends Entity{
             interactNPC(npcIndex);
 
             //IF COLLISION FALSE, PLAYER CAN MOVE
-            if(collisionOn == false) {
+            if(!collisionOn) {
                 switch (direction) {
                     case "up":
                         worldY -= speed;
@@ -120,12 +121,10 @@ public class Player extends Entity{
     }
 
     public void pickUp0bject(int i){
-            if(i != 999)
-            {
+            if(i != 999) {
                 String objectName = gp.obj[i].name;
 
-                switch (objectName)
-                {
+                switch (objectName) {
                     case "key":
                         gp.playSE(1);
                         haskey++;
@@ -134,13 +133,12 @@ public class Player extends Entity{
                         break;
                     case "door":
 
-                        if(haskey > 0)
-                        {
+                        if (haskey > 0) {
                             gp.playSE(3);
                             gp.obj[i] = null;
                             haskey--;
                             gp.ui.showMessage("You have opened the door!");
-                        }else {
+                        } else {
                             gp.ui.showMessage("You need a key dawg! :/");
                         }
                         break;
@@ -168,12 +166,11 @@ public class Player extends Entity{
                         gp.ui.showMessage("You have become sneaky!");
                         break;
                 }
-            if(i != 999) {
             }
     }
     public void interactNPC(int i) {
         if(i != 999) {
-            if(gp.keyH.enterPressed == true) {
+            if(gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
