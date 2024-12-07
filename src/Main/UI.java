@@ -25,7 +25,7 @@ public class UI {
     public int commandNum = 0;
     public int titleScreenState = 0;
 
-   // double playTime;
+   double playTime;
    // DecimalFormat dFormat = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp) {
