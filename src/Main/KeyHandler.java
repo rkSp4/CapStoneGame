@@ -1,12 +1,15 @@
 package Main;
 
+import Entity.Player;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Key;
 
 public class KeyHandler implements KeyListener{
-
+    Player player;
     GamePanel gp;
+
     public boolean upPressed, downPressed, leftPressed, rightPressed;
     boolean checkDrawTime = false;
 
@@ -89,6 +92,10 @@ public class KeyHandler implements KeyListener{
         }
         //GAME STATE
         if(gp.gameState == gp.playState){
+            if(code == KeyEvent.VK_CAPS_LOCK){
+                System.out.println("Developer options are turned on!");
+                //IMPLEMENT DEV OPTS LIKE NO COLLISIONS, INF HP
+            }
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
                 upPressed = true;
             }
@@ -120,14 +127,14 @@ public class KeyHandler implements KeyListener{
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 0;
+                    gp.ui.commandNum = 2;
                 }
             }
 
             if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 gp.ui.commandNum++;
                 if (gp.ui.commandNum > 2) {
-                    gp.ui.commandNum = 2;
+                    gp.ui.commandNum = 0;
                 }
             }
 
@@ -146,7 +153,34 @@ public class KeyHandler implements KeyListener{
                 }
             }
         }
+        //OVERSTATE
+        if(gp.gameState == gp.overState){
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = 1;
+                }
+            }
+
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > 1) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+
+            if (code == KeyEvent.VK_ENTER) {
+                if (gp.ui.commandNum == 0) {
+                    gp.gameState = gp.playState;
+                    gp.playMusic(0);
+                }
+                if (gp.ui.commandNum == 1) {
+                    System.exit(0);
+                }
+            }
+        }
     }
+
 
     @Override
     public void keyReleased(KeyEvent e) {

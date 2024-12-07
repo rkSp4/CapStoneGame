@@ -163,7 +163,7 @@ public class Player extends Entity{
 
     public void interactNPC(int i){
         if(i != 999){
-            System.out.println("You are hitting cat");
+            gp.gameState = gp.overState;
         }
     }
 

@@ -56,6 +56,9 @@ public class UI {
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
         }
+        if(gp.gameState == gp.overState){
+            drawOverScreen();
+        }
 
         if(messageOn == true)
         {
@@ -142,7 +145,7 @@ public class UI {
 
             text = "CAT2";
             x += gp.tileSize*6;
-            y = gp.tileSize*9;
+            //y = gp.tileSize*9;
             g2.drawImage(gp.player.white, x - gp.tileSize, y-gp.tileSize*5, gp.tileSize*4, gp.tileSize*4, null);
             g2.drawString(text, x, y);
             if(commandNum == 1){
@@ -194,6 +197,50 @@ public class UI {
         y += gp.tileSize;
         g2.drawString(text, x, y);
         if(commandNum == 2){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+    }
+
+    public void drawOverScreen(){
+        gp.stopMusic();
+        //gp.playMusic(n); game over music
+        g2.setColor(new Color(0, 0 , 0));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        //NAME
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
+        String text = "GAME OVER";
+        int x = getXtoCenter(text);
+        int y = gp.tileSize*3;
+
+        //SHADOW
+        g2.setColor(Color.black);
+        g2.drawString(text, x+5, y+5);
+        //MAIN COLOR
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
+        text = "YOU'VE BEEN CAUGHT!";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+
+        //MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "RETRY";
+        x = getXtoCenter(text);
+        y += gp.tileSize*4;
+        g2.drawString(text, x, y);
+        if(commandNum==0){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
+        text = "QUIT GAME";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if(commandNum==1){
             g2.drawString(">", x-gp.tileSize, y);
         }
     }
