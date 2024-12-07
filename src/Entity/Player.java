@@ -6,10 +6,10 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.SQLOutput;
 
 public class Player extends Entity{
 
-    GamePanel gp;
     KeyHandler keyH;
 
     public final int screenX;
@@ -19,7 +19,7 @@ public class Player extends Entity{
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
-        this.gp = gp;
+        super(gp);
         this.keyH = keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -75,12 +75,19 @@ public class Player extends Entity{
                 direction = "right";
             }
 
+            //CHECK TILE COLLISION
             collisionOn = false;
             gp.cChecker.checkTile(this);
 
-
+            //CHECK OBJECT COLLISION
            int objIndex = gp.cChecker.checkObject(this, true);
             pickUp0bject(objIndex);
+
+            //CHECK NPC COLLISION
+            int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
+            interactNPC(npcIndex);
+
+            //IF COLLISION FALSE, PLAYER CAN MOVE
             if(collisionOn == false) {
                 switch (direction) {
                     case "up":
@@ -152,6 +159,12 @@ public class Player extends Entity{
                         break;
                 }
             }
+    }
+
+    public void interactNPC(int i){
+        if(i != 999){
+            System.out.println("You are hitting cat");
+        }
     }
 
     public void draw(Graphics a2) {
