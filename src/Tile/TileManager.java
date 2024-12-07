@@ -5,6 +5,7 @@ import Main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,6 +25,7 @@ public class TileManager {
         loadMap("/maps/worldV2.txt");
     }
     public void getTileImage() {
+
         //PLACEHOLDER//
         setup(0, "grass00", false);
         setup(1, "grass00", false);

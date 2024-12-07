@@ -2,17 +2,21 @@ package Main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
+import Object.SuperObject;
 import Object.OBJ_KEY;
+import Object.OBJ_TIME;
+import Object.OBJ_HEART;
 
 public class UI {
 
     GamePanel gp;
     Graphics2D g2;
+    BufferedImage hfull,hhalf,hblank;
     BufferedImage keyI;
+    BufferedImage timeI;
     int messagectr = 0;
 
     Font arial_40, arial_80B;
-    // BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -29,8 +33,16 @@ public class UI {
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         arial_80B = new Font("Arial", Font.BOLD, 80);
         OBJ_KEY key = new OBJ_KEY(gp);
+        OBJ_TIME time = new OBJ_TIME(gp);
+        timeI = time.image;
         keyI = key.image;
 
+
+        //CREATE HUB OBJECT
+        SuperObject heart = new OBJ_HEART(gp);
+        hfull = heart.image;
+        hhalf = heart.image2;
+        hblank = heart.image3;
     }
 
     public void showMessage(String text){
@@ -38,6 +50,37 @@ public class UI {
         message = text;
         messageOn = true;
     }
+    public void drawPlayerLife(){
+
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+        // draw max life
+        while(i < gp.player.maxLife/2)
+        {
+            g2.drawImage(hblank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+        //RESET
+        x = gp.tileSize/2;
+        y = gp.tileSize/2;
+        i = 0;
+        // draw current life
+        while(i < gp.player.life)
+        {
+            g2.drawImage(hhalf, x,y,null);
+            i++;
+            if(i < gp.player.life)
+            {
+                g2.drawImage(hfull, x, y ,null);
+            }
+            i++;
+            x += gp.tileSize;
+        }
+    }
+
     public void draw(Graphics2D g2){
         this.g2 = g2;
         g2.setFont(arial_40);
@@ -50,11 +93,23 @@ public class UI {
         }
         //PLAY STATE
         if(gp.gameState == gp.playState){
-            g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
-            g2.drawString("x " + gp.player.haskey, 74, 65);
+            //KEY UI
+            g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2 + 60, gp.tileSize, gp.tileSize, null);
+            g2.drawString("x " + gp.player.haskey, 74, 125);
+            //TIME
+            playTime += (double)1/60;
+            DecimalFormat dFormat = new DecimalFormat("#0.00");
+            g2.setColor(Color.black);
+            g2.fillRoundRect(gp.tileSize * 11, 18, gp.tileSize * 4, 63,35, 35);
+            g2.setColor(Color.white);
+            g2.drawString(":"+dFormat.format(playTime), gp.tileSize*12, 65);
+            g2.drawImage(timeI, gp.tileSize*11 + 7, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+
+            drawPlayerLife();
         }//PAUSE STATE
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
+
         }
 
         if(messageOn == true)

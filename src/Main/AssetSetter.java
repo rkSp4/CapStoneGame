@@ -5,7 +5,7 @@ import Object.OBJ_DOOR;
 import Object.OBJ_BOOTS;
 import Object.OBJ_CHEST;
 
-public class AssetSetter{
+public class AssetSetter extends Object{
 
     GamePanel gp;
     public AssetSetter(GamePanel gp) {

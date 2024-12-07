@@ -19,5 +19,8 @@ public abstract class Entity {
     public int SolidAreaDefaultY;
     public boolean collisionOn = false;
 
+    // Character Status
+    public int maxLife;
+    public int life;
 }
 

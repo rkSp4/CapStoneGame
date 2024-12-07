@@ -5,6 +5,7 @@ import Object.SuperObject;
 import Tile.TileManager;
 
 import java.awt.*;
+import java.sql.SQLOutput;
 import javax.swing.JPanel;
 
 
@@ -142,6 +143,12 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(a);
         Graphics2D a2 = (Graphics2D) a;
 
+        //DEBUG
+
+        long drawStart = 0;
+        if(keyH.checkDrawTime == true) {
+            drawStart = System.nanoTime();
+        }
         //TITLE
         if(gameState == titleState){
             ui.draw(a2);
@@ -162,6 +169,38 @@ public class GamePanel extends JPanel implements Runnable {
 
             //UI
             ui.draw(a2);
+        }
+//        if(keyH.checkDrawTime == true)
+//        {
+//            long drawEnd = System.nanoTime();
+//            long passed = drawEnd - drawStart;
+//            a2.setColor(Color.red);
+//            a2.drawString("Draw Time:" + passed, 10, 400);
+//            System.out.println("Draw time: " + passed);
+//        }
+        if (keyH.checkDrawTime == true) {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+
+            a2.setColor(Color.red);
+            String drawTimeStr = "Draw Time: " + passed;
+            FontMetrics fm = a2.getFontMetrics(a2.getFont());
+            int strWidth = fm.stringWidth(drawTimeStr);
+            int strHeight = fm.getHeight();
+            int pad = 10;
+            int boxX = 10 - pad;
+            int boxY = 400 - strHeight - pad;
+            int boxWidth = strWidth + 2 * pad;
+            int boxHeight = strHeight + 2 * pad;
+            a2.setColor(Color.black);
+            a2.fillRect(boxX, boxY, boxWidth, boxHeight);
+            int textX = boxX + (boxWidth - strWidth) / 2;
+            int textY = boxY + strHeight + pad;
+
+            a2.setColor(Color.red);
+            a2.drawString(drawTimeStr, textX, textY);
+
+            System.out.println("Draw time: " + passed);
         }
 
         a2.dispose();
