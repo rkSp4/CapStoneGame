@@ -1,9 +1,13 @@
 package Main;
 
+import Entity.NPC;
 import Object.OBJ_KEY;
 import Object.OBJ_DOOR;
 import Object.OBJ_BOOTS;
 import Object.OBJ_CHEST;
+import Object.OBJ_SHADOW;
+import Object.OBJ_CLAWS;
+
 
 public class AssetSetter extends Object{
 
@@ -45,6 +49,19 @@ public class AssetSetter extends Object{
         gp.obj[7].worldX = 37 * gp.tileSize;
         gp.obj[7].worldY = 42 * gp.tileSize;
 
+        gp.obj[8] = new OBJ_CLAWS();
+        gp.obj[8].worldX = gp.tileSize*24;
+        gp.obj[8].worldY = gp.tileSize*24;
 
+        gp.obj[9] = new OBJ_SHADOW();
+        gp.obj[9].worldX = gp.tileSize*25;
+        gp.obj[9].worldY = gp.tileSize*23;
+
+    }
+
+    public void setNPC(){
+        gp.npc[0] = new NPC(gp);
+        gp.npc[0].worldX = gp.tileSize*21;
+        gp.npc[0].worldY = gp.tileSize*21;
     }
 }

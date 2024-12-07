@@ -21,11 +21,12 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public boolean gameFinished = false;
+    public String currentDialogue = "";
     public int commandNum = 0;
     public int titleScreenState = 0;
 
-    double playTime;
-    DecimalFormat dFormat = new DecimalFormat("#0.00");
+   // double playTime;
+   // DecimalFormat dFormat = new DecimalFormat("#0.00");
 
     public UI(GamePanel gp) {
         this.gp = gp;
@@ -111,8 +112,16 @@ public class UI {
             drawPauseScreen();
 
         }
+        if(gp.gameState == gp.overState){
+            drawOverScreen();
+        }
 
-        if(messageOn == true)
+        //DIALOGUE
+        if(gp.gameState == gp.dialogueState) {
+            drawDialogueScreen();
+        }
+
+        if(messageOn)
         {
             g2.setFont(g2.getFont().deriveFont(30F));
             g2.drawString(message, gp.tileSize/2, gp.tileSize*5 );
@@ -197,7 +206,7 @@ public class UI {
 
             text = "CAT2";
             x += gp.tileSize*6;
-            y = gp.tileSize*9;
+            //y = gp.tileSize*9;
             g2.drawImage(gp.player.white, x - gp.tileSize, y-gp.tileSize*5, gp.tileSize*4, gp.tileSize*4, null);
             g2.drawString(text, x, y);
             if(commandNum == 1){
@@ -251,6 +260,77 @@ public class UI {
         if(commandNum == 2){
             g2.drawString(">", x-gp.tileSize, y);
         }
+    }
+
+    public void drawOverScreen(){
+
+        g2.setColor(new Color(0, 0 , 0));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        //NAME
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
+        String text = "GAME OVER";
+        int x = getXtoCenter(text);
+        int y = gp.tileSize*3;
+
+        //SHADOW
+        g2.setColor(Color.black);
+        g2.drawString(text, x+5, y+5);
+        //MAIN COLOR
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 36F));
+        text = "YOU'VE BEEN CAUGHT!";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+
+        //MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "RETRY";
+        x = getXtoCenter(text);
+        y += gp.tileSize*4;
+        g2.drawString(text, x, y);
+        if(commandNum==0){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
+        text = "QUIT GAME";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if(commandNum==1){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+    }
+
+    public void drawDialogueScreen() {
+        //WINDOW
+        int x = gp.tileSize*2;
+        int y = gp.tileSize/2;
+        int width = gp.screenWidth - (gp.tileSize*4);
+        int height = gp.tileSize*4;
+        drawSubWindow(x, y, width, height);
+
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
+        x += gp.tileSize;
+        y += gp.tileSize;
+
+        for(String line : currentDialogue.split("\n")) {
+            g2.drawString(line, x, y);
+            y += 40;
+        }
+    }
+    public void drawSubWindow(int x, int y, int width, int height) {
+        Color c = new Color(0, 0, 0, 140);
+        g2.setColor(c);
+        g2.fillRoundRect(x, y, width, height, 35, 35);
+
+        c = new Color(255, 255, 0);
+        g2.setColor(c);
+        g2.setStroke(new BasicStroke(5));
+        g2.drawRoundRect(x+5, y+5, -10, -10, 25, 25);
     }
     public int getXtoCenter(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
