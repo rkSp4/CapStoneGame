@@ -91,6 +91,12 @@ public class Player extends Entity{
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
+
+            gp.keyH.enterPressed = false;
+
+
             //IF COLLISION FALSE, PLAYER CAN MOVE
             if(!collisionOn) {
                 switch (direction) {
@@ -126,20 +132,20 @@ public class Player extends Entity{
 
     public void pickUp0bject(int i){
             if(i != 999) {
-                String objectName = gp.obj[i].name;
-
+                String objectName = gp.obj/*[gp.currentMap]*/[i].name;
+                /*[gp.currentMap]*/
                 switch (objectName) {
                     case "Key":
                         gp.playSE(1);
                         haskey++;
-                        gp.obj[i] = null;
+                        gp.obj/*[gp.currentMap]*/[i] = null;
                         gp.ui.showMessage("You got a key!");
                         break;
                     case "door":
 
                         if (haskey > 0) {
                             gp.playSE(3);
-                            gp.obj[i] = null;
+                            gp.obj/*[gp.currentMap]*/[i] = null;
                             haskey--;
                             gp.ui.showMessage("You have opened the door!");
                         } else {
@@ -155,18 +161,18 @@ public class Player extends Entity{
                     case "boots":
                         gp.playSE(2);
                         speed += 1;
-                        gp.obj[i] = null;
+                        gp.obj/*[gp.currentMap]*/[i] = null;
                         gp.ui.showMessage("You have become agile!");
                         break;
                     case "claws":
                         gp.playSE(2);
                         hasClaw++;
-                        gp.obj[i] = null;
+                        gp.obj/*[gp.currentMap]*/[i] = null;
                         gp.ui.showMessage("You have become dangerous!");
                         break;
                     case "shadow":
                         gp.playSE(2);
-                        gp.obj[i] = null;
+                        gp.obj/*[gp.currentMap]*/[i] = null;
                         gp.ui.showMessage("You have become sneaky!");
                         break;
                 }
@@ -176,10 +182,9 @@ public class Player extends Entity{
         if(i != 999) {
             if(gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
-                gp.npc[i].speak();
+                gp.npc/*[gp.currentMap]*/[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
     }
 
     public void draw(Graphics a2) {
