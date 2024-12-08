@@ -147,8 +147,8 @@ public class UI {
             g2.setColor(new Color(70, 120 , 80));
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
             //NAME
-            g2.setFont(g2.getFont().deriveFont(Font.BOLD,96F));
-            String text = "GAME TITLE";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,69F));
+            String text = "Paws and Shadows";
             int x = getXtoCenter(text);
             int y = gp.tileSize*3;
 
@@ -319,14 +319,17 @@ public class UI {
         int height = gp.tileSize*4;
         drawSubWindow(x, y, width, height);
 
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 28));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 42));
         x += gp.tileSize;
         y += gp.tileSize;
 
         for(String line : currentDialogue.split("\n")) {
-            g2.drawString(line, x, y);
+            g2.drawString(line, getXtoCenter(line), y+gp.tileSize);
             y += 40;
         }
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 21));
+        String str = "Press ENTER to continue";
+        g2.drawString(str, getXtoCenter(str), y+gp.tileSize*2);
     }
     public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 140);
@@ -340,8 +343,7 @@ public class UI {
     }
     public int getXtoCenter(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = gp.screenWidth/2 - length/2;
-        return x;
+        return gp.screenWidth/2 - length/2;
     }
 }
 

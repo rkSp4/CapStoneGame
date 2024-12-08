@@ -47,19 +47,19 @@ public class AssetSetter {
 
         gp.obj/*[mapNum]*/[6] = new OBJ_CHEST(gp);
         gp.obj/*[mapNum]*/[6].worldX = 10 * gp.tileSize;
-        gp.obj/*[mapNum]*/[6].worldY = 7 * gp.tileSize;
+        gp.obj/*[mapNum]*/[6].worldY = 8 * gp.tileSize;
 
         gp.obj/*[mapNum]*/[7] = new OBJ_BOOTS(gp);
         gp.obj/*[mapNum]*/[7].worldX = 37 * gp.tileSize;
         gp.obj/*[mapNum]*/[7].worldY = 42 * gp.tileSize;
 
-        gp.obj/*[mapNum]*/[8] = new OBJ_CLAWS();
-        gp.obj/*[mapNum]*/[8].worldX = gp.tileSize*24;
-        gp.obj/*[mapNum]*/[8].worldY = gp.tileSize*24;
+        gp.obj/*[mapNum]*/[8] = new OBJ_CLAWS(gp);
+        gp.obj/*[mapNum]*/[8].worldX = gp.tileSize*21;
+        gp.obj/*[mapNum]*/[8].worldY = gp.tileSize*19;
 
-        gp.obj/*[mapNum]*/[9] = new OBJ_SHADOW();
+        gp.obj/*[mapNum]*/[9] = new OBJ_SHADOW(gp);
         gp.obj/*[mapNum]*/[9].worldX = gp.tileSize*25;
-        gp.obj/*[mapNum]*/[9].worldY = gp.tileSize*23;
+        gp.obj/*[mapNum]*/[9].worldY = gp.tileSize*19;
 
     }
 

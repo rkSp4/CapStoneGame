@@ -199,7 +199,7 @@ public class    CollisionChecker {
                         entity.solidArea.x += entity.speed;
                         if(entity.solidArea.intersects(target[i].solidArea))
                         {
-                               entity.collisionOn = true;
+                                entity.collisionOn = true;
                                 index = i;
                         }
                         break;

@@ -161,27 +161,30 @@ public class Player extends Entity{
                         gp.playSE(2);
                         speed += 1;
                         gp.obj/*[gp.currentMap]*/[i] = null;
-                        gp.ui.showMessage("You have become agile!");
+                        gp.gameState=gp.dialogueState;
+                        gp.ui.currentDialogue="You have become agile!";
                         break;
                     case "claws":
                         gp.playSE(2);
                         hasClaw++;
                         gp.obj/*[gp.currentMap]*/[i] = null;
-                        gp.ui.showMessage("You have become dangerous!");
+                        gp.gameState=gp.dialogueState;
+                        gp.ui.currentDialogue="You have become dangerous!";
                         break;
                     case "shadow":
                         gp.playSE(2);
                         gp.obj/*[gp.currentMap]*/[i] = null;
-                        gp.ui.showMessage("You have become sneaky!");
+                        gp.gameState=gp.dialogueState;
+                        gp.ui.currentDialogue="You have become sneaky!";
                         break;
                 }
             }
     }
     public void interactNPC(int i) {
         if(i != 999) {
-//            if(hasClaw > 0){
-//                //implement remove npc
-//            }
+            if(hasClaw > 0){
+                gp.npc[0]=null;
+            }
             if(gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
                 gp.npc/*[gp.currentMap]*/[i].speak();
