@@ -160,7 +160,7 @@ public class GamePanel extends JPanel implements Runnable {
         //DEBUG
 
         long drawStart = 0;
-        if (keyH.checkDrawTime == true) {
+        if (keyH.checkDrawTime) {
             drawStart = System.nanoTime();
         }
         //TITLE
@@ -198,7 +198,7 @@ public class GamePanel extends JPanel implements Runnable {
 //            a2.drawString("Draw Time:" + passed, 10, 400);
 //            System.out.println("Draw time: " + passed);
 //        }
-        if (keyH.checkDrawTime == true) {
+        if (keyH.checkDrawTime) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
 
@@ -224,7 +224,10 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         a2.dispose();
+
     }
+
+
     public void playMusic(int i){
         music.setFile(i);
         music.play();
