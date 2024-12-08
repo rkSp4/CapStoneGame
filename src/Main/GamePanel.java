@@ -45,6 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public SuperObject[] obj = new SuperObject[10];
     public Entity[] npc = new Entity[10];
+    public boolean devMode = false;
 
     //GAME STATE
     public int gameState;
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int overState = 4;
+
 
     //player default pos
     int playx = 100;
@@ -148,6 +150,8 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == pauseState){
             //nothing
         }
+
+
     }
 
     public void paintComponent(Graphics a) {

@@ -84,7 +84,7 @@ public class Player extends Entity{
             gp.cChecker.checkTile(this);
 
             //CHECK OBJECT COLLISION
-           int objIndex = gp.cChecker.checkObject(this, true);
+            int objIndex = gp.cChecker.checkObject(this, true);
             pickUp0bject(objIndex);
 
             //CHECK NPC COLLISION
@@ -129,7 +129,7 @@ public class Player extends Entity{
                 String objectName = gp.obj[i].name;
 
                 switch (objectName) {
-                    case "key":
+                    case "Key":
                         gp.playSE(1);
                         haskey++;
                         gp.obj[i] = null;

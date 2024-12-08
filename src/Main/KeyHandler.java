@@ -88,10 +88,16 @@ public class KeyHandler implements KeyListener{
                 }
             }
         }
-        //GAME STATE
+        //PLAY STATE
         if(gp.gameState == gp.playState){
             if(code == KeyEvent.VK_CAPS_LOCK){
-                System.out.println("Developer options are turned on!");
+                if(!gp.devMode) {
+                    System.out.println("Developer options are turned on!");
+                    gp.devMode = true;
+                }else{
+                    System.out.println("Developer options are turned off!");
+                    gp.devMode = false;
+                }
                 //IMPLEMENT DEV OPTS LIKE NO COLLISIONS, INF HP
             }
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){

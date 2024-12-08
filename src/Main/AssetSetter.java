@@ -9,7 +9,7 @@ import Object.OBJ_SHADOW;
 import Object.OBJ_CLAWS;
 
 
-public class AssetSetter extends Object{
+public class AssetSetter {
 
     GamePanel gp;
     public AssetSetter(GamePanel gp) {
