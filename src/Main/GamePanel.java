@@ -6,11 +6,12 @@ import Object.SuperObject;
 import Tile.TileManager;
 
 import java.awt.*;
-import java.sql.SQLOutput;
+//import java.sql.SQLOutput;
 import javax.swing.JPanel;
 
 
 public class GamePanel extends JPanel implements Runnable {
+    //SCREEN SETTINGS
     final int originalTitleSize = 16;
     final int scale = 3;
 
@@ -20,31 +21,31 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
 
-
+    //WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    //public final int maxMap = 0;
+    //public int currentMap = 0;
+    //public int currentMap = 1;
 
-
+    //FPS
     int fps = 60;
 
+    //SYSTEM
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
-
     sound music = new sound();
     sound se = new sound();
-
     public UI ui = new UI(this);
-
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
-
-    //public EventHandler eHandler = new EventHandler(this);
+    public EventHandler eHandler = new EventHandler(this);
     Thread gameThread;
 
-    //PLAYER & ENTITY
+    //PLAYER & ENTITY PS:para nis mga NPC'S kaning gi comment out,rason kay para dili mu overlap ang npc sa lain map
     public Player player = new Player(this, keyH);
-    public SuperObject[] obj = new SuperObject[10];
-    public Entity[] npc = new Entity[10];
+    public SuperObject[]/*[]*/ obj = new SuperObject[10];
+    public Entity[]/*[]*/ npc = new Entity/*[maxMap]*/[10];
     public boolean devMode = false;
 
     //GAME STATE
@@ -68,8 +69,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
 
     }
-
-
 
     public void setUpGame(){
         playMusic(0);
@@ -141,9 +140,9 @@ public class GamePanel extends JPanel implements Runnable {
             //PLAYER
             player.update();
             //NPC
-            for(int i = 0; i <npc.length; i++) {
-                if(npc[i] != null) {
-                    npc[i].update();
+            for(int i = 0; i <npc/*[i]*/.length; i++) {
+                if(npc/*[currentMap]*/[i] != null) {
+                    npc/*[currentMap]*/[i].update();
                 }
             }
         }
@@ -161,27 +160,26 @@ public class GamePanel extends JPanel implements Runnable {
         //DEBUG
 
         long drawStart = 0;
-        if(keyH.checkDrawTime == true) {
+        if (keyH.checkDrawTime == true) {
             drawStart = System.nanoTime();
         }
         //TITLE
-        if(gameState == titleState){
+        if (gameState == titleState) {
             ui.draw(a2);
-        }else{
+        } else {
             //TILE
             tileM.draw(a2);
 
             //OBJECT
-            for(int i = 0; i < obj.length; i++){
-                if(obj[i] != null)
-                {
+            for (int i = 0; i < obj.length; i++) {
+                if (obj[i] != null) {
                     obj[i].draw(a2, this);
                 }
             }
 
             //NPC
-            for(int i = 0; i<npc.length; i++){
-                if(npc[i]!=null){
+            for (int i = 0; i < npc.length; i++) {
+                if (npc[i] != null) {
                     npc[i].draw(a2);
                 }
             }

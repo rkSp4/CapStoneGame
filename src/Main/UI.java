@@ -52,36 +52,6 @@ public class UI {
         message = text;
         messageOn = true;
     }
-    public void drawPlayerLife(){
-
-        int x = gp.tileSize/2;
-        int y = gp.tileSize/2;
-        int i = 0;
-
-        // draw max life
-        while(i < gp.player.maxLife/2)
-        {
-            g2.drawImage(hblank, x, y, null);
-            i++;
-            x += gp.tileSize;
-        }
-        //RESET
-        x = gp.tileSize/2;
-        y = gp.tileSize/2;
-        i = 0;
-        // draw current life
-        while(i < gp.player.life)
-        {
-            g2.drawImage(hhalf, x,y,null);
-            i++;
-            if(i < gp.player.life)
-            {
-                g2.drawImage(hfull, x, y ,null);
-            }
-            i++;
-            x += gp.tileSize;
-        }
-    }
 
     public void draw(Graphics2D g2){
         this.g2 = g2;
@@ -110,6 +80,7 @@ public class UI {
             drawPlayerLife();
         }//PAUSE STATE
         if(gp.gameState == gp.pauseState){
+            drawPlayerLife();
             drawPauseScreen();
 
         }
@@ -121,6 +92,7 @@ public class UI {
 
         //DIALOGUE
         if(gp.gameState == gp.dialogueState) {
+            drawPlayerLife();
             drawDialogueScreen();
         }
 
@@ -136,6 +108,37 @@ public class UI {
                 messagectr = 0;
                 messageOn = false;
             }
+        }
+    }
+    //PLAYER LIFE
+    public void drawPlayerLife(){
+
+        int x = gp.tileSize/2;
+        int y = gp.tileSize/2;
+        int i = 0;
+
+        // draw max life
+        while(i < gp.player.maxLife/2)
+        {
+            g2.drawImage(hblank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+        //RESET
+        x = gp.tileSize/2;
+        y = gp.tileSize/2;
+        i = 0;
+        // draw current life
+        while(i < gp.player.life)
+        {
+            g2.drawImage(hhalf, x,y,null);
+            i++;
+            if(i < gp.player.life)
+            {
+                g2.drawImage(hfull, x, y ,null);
+            }
+            i++;
+            x += gp.tileSize;
         }
     }
 

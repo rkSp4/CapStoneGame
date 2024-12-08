@@ -119,6 +119,9 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
                 rightPressed = true;
             }
+            else if(code == KeyEvent.VK_ENTER) {
+                enterPressed = true;
+            }
         }
 
 
@@ -130,7 +133,13 @@ public class KeyHandler implements KeyListener{
                 checkDrawTime = false;
             }
         }
-
+        //WAKO KAHIBAW ASA NI GIKAN NING PANG REFRESH SA MAP, UNTA KAHIBAW MO INGNA LANG KO
+        /*
+        if(code == KeyEvent.VK_R) {
+            switch(gp.currentMap) {
+            case 0: gp.tileM.loadMap("/maps/worldV3.txt", 0); break;
+            case 0: gp.tileM.loadMap("/maps/interior01.txt", 1); break;
+         */
 
         if(code == KeyEvent.VK_P || code == KeyEvent.VK_ESCAPE) {
             if (gp.gameState == gp.playState) {
@@ -199,7 +208,7 @@ public class KeyHandler implements KeyListener{
             }
         }
         //DIALOGUE STATE
-        if(gp.gameState == gp.dialogueState) {
+        else if(gp.gameState == gp.dialogueState) {
             if(code == KeyEvent.VK_ENTER) {
                 gp.gameState = gp.playState;
             }
