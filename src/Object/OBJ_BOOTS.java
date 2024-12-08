@@ -9,7 +9,7 @@ public class OBJ_BOOTS extends SuperObject{
 
     public OBJ_BOOTS(GamePanel gp) {
 
-        name = "Boots";
+        name = "boots";
         try {
             image = ImageIO.read(getClass().getResourceAsStream("/objects/boots.png"));
             image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);

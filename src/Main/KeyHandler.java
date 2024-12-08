@@ -1,5 +1,7 @@
 package Main;
 
+import Entity.Player;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.security.Key;
@@ -94,9 +96,11 @@ public class KeyHandler implements KeyListener{
                 if(!gp.devMode) {
                     System.out.println("Developer options are turned on!");
                     gp.devMode = true;
+                    gp.player.speed += 4;
                 }else{
                     System.out.println("Developer options are turned off!");
                     gp.devMode = false;
+                    gp.player.speed -= 4;
                 }
                 //IMPLEMENT DEV OPTS LIKE NO COLLISIONS, INF HP
             }

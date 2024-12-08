@@ -67,7 +67,6 @@ public class Player extends Entity{
 
 
     public void update() {
-
         if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
 
             if (keyH.upPressed) {
@@ -174,6 +173,9 @@ public class Player extends Entity{
     }
     public void interactNPC(int i) {
         if(i != 999) {
+//            if(hasClaw > 0){
+//                //implement remove npc
+//            }
             if(gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();

@@ -114,6 +114,8 @@ public class UI {
 
         }
         if(gp.gameState == gp.overState){
+            gp.stopMusic();
+            //implement game over music
             drawOverScreen();
         }
 

@@ -41,6 +41,7 @@ public abstract class Entity {
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
         gp.cChecker.checkPlayer(this);
+
         if (!collisionOn) {
             switch (direction) {
                 case "up":

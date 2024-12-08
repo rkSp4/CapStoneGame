@@ -1,7 +1,8 @@
 package Main;
 
 import Entity.Entity;
-
+import java.awt.*;
+import java.awt.geom.Line2D;
 import java.util.Objects;
 
 public class    CollisionChecker {
@@ -68,6 +69,7 @@ public class    CollisionChecker {
 
     public int checkObject(Entity entity, boolean player){
         int index = 999;
+
 
         for(int i = 0; i < Objects.requireNonNull(gp.obj).length; i++){
             if(gp.obj[i] != null)
@@ -253,6 +255,7 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
+                    gp.gameState= gp.overState;
                 }
                 break;
             case "down":
@@ -260,7 +263,7 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
-
+                    gp.gameState= gp.overState;
                 }
                 break;
             case "right":
@@ -268,7 +271,7 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
-
+                    gp.gameState= gp.overState;
                 }
                 break;
             case "left":
@@ -276,6 +279,7 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
+                    gp.gameState= gp.overState;
                 }
                 break;
         }
@@ -284,5 +288,6 @@ public class    CollisionChecker {
         gp.player.solidArea.x = gp.player.SolidAreaDefaultX;
         gp.player.solidArea.y = gp.player.SolidAreaDefaultY;
     }
+
 }
 
