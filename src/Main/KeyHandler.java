@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener{
 
     GamePanel gp;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed;
     boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp){
@@ -24,6 +24,11 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+
+        //KILLSWITCH
+        if(gp.devMode && code == KeyEvent.VK_DELETE){
+            System.exit(0);
+        }
 
         //TITLE STATE
         if(gp.gameState == gp.titleState ) {
@@ -78,10 +83,14 @@ public class KeyHandler implements KeyListener{
                 }
 
                 if (code == KeyEvent.VK_ENTER) {
+                    //ORANGE CAT
                     if (gp.ui.commandNum == 0) {
+                        //gp.player[0];
                         gp.gameState = gp.playState;
                     }
+                    //WHITE CAT
                     if (gp.ui.commandNum == 1) {
+                        //gp.player[1];
                         gp.gameState = gp.playState;
                     }
                     if (gp.ui.commandNum == 2) {
@@ -103,6 +112,7 @@ public class KeyHandler implements KeyListener{
                     gp.player.speed -= 4;
                 }
                 //IMPLEMENT DEV OPTS LIKE NO COLLISIONS, INF HP
+
             }
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
                 upPressed = true;
@@ -119,7 +129,16 @@ public class KeyHandler implements KeyListener{
             if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
                 rightPressed = true;
             }
-            else if(code == KeyEvent.VK_ENTER) {
+
+            //sprint
+            if(code == KeyEvent.VK_CONTROL){
+                ctrlPressed = true;
+            }
+            if(code == KeyEvent.VK_H){
+                gp.gameState = gp.optionState;
+            }
+
+            if(code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             }
         }
@@ -155,13 +174,13 @@ public class KeyHandler implements KeyListener{
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 2;
+                    gp.ui.commandNum = 3;
                 }
             }
 
             if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 gp.ui.commandNum++;
-                if (gp.ui.commandNum > 2) {
+                if (gp.ui.commandNum > 3) {
                     gp.ui.commandNum = 0;
                 }
             }
@@ -176,7 +195,11 @@ public class KeyHandler implements KeyListener{
                     gp.ui.titleScreenState = 0;
                     gp.playMusic(0);
                 }
-                if (gp.ui.commandNum == 2) {
+                if(gp.ui.commandNum == 2){
+                    gp.gameState = gp.optionState;
+                    gp.ui.commandNum = 0;
+                }
+                if (gp.ui.commandNum == 3) {
                     System.exit(0);
                 }
             }
@@ -213,6 +236,41 @@ public class KeyHandler implements KeyListener{
                 gp.gameState = gp.playState;
             }
         }
+
+        //OPTIONS STATE
+        if(gp.gameState == gp.optionState){
+            if(code == KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.playState;
+            }
+
+            if(code == KeyEvent.VK_ENTER) {
+                enterPressed = true;
+            }
+
+            int maxCommandNum = 0;
+            switch(gp.ui.substate){
+                case 0: maxCommandNum = 3;
+                    break;
+                case 1:
+                    break;
+            }
+
+            if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
+                gp.ui.commandNum--;
+                if (gp.ui.commandNum < 0) {
+                    gp.ui.commandNum = maxCommandNum;
+                }
+            }
+
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+                gp.ui.commandNum++;
+                if (gp.ui.commandNum > maxCommandNum) {
+                    gp.ui.commandNum = 0;
+                }
+            }
+
+
+        }
     }
 
 
@@ -220,6 +278,9 @@ public class KeyHandler implements KeyListener{
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
+        if(code == KeyEvent.VK_ENTER) {
+            enterPressed = false;
+        }
 
         if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
             upPressed = false;
@@ -237,5 +298,8 @@ public class KeyHandler implements KeyListener{
             rightPressed = false;
         }
 
+        if(code == KeyEvent.VK_CONTROL){
+            ctrlPressed = false;
+        }
     }
 }

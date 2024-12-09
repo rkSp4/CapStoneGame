@@ -6,6 +6,7 @@ import Object.SuperObject;
 import Tile.TileManager;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 //import java.sql.SQLOutput;
 import javax.swing.JPanel;
 
@@ -27,6 +28,13 @@ public class GamePanel extends JPanel implements Runnable {
     //public final int maxMap = 0;
     //public int currentMap = 0;
     //public int currentMap = 1;
+
+    //FULLSCREEN
+    int ScreenWidth2 = screenWidth;
+    int ScreenHeight2 = screenHeight;
+    BufferedImage tempScreen;
+    Graphics2D g2;
+    public boolean fullScreenOn = false;
 
     //FPS
     int fps = 60;
@@ -55,7 +63,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int dialogueState = 3;
     public final int overState = 4;
-
+    public final int optionState = 5;
 
     //player default pos
     int playx = 100;
@@ -212,13 +220,13 @@ public class GamePanel extends JPanel implements Runnable {
             int boxY = 400 - strHeight - pad;
             int boxWidth = strWidth + 2 * pad;
             int boxHeight = strHeight + 2 * pad;
-            a2.setColor(Color.black);
-            a2.fillRect(boxX, boxY, boxWidth, boxHeight);
+//            a2.setColor(Color.black);
+//            a2.fillRect(boxX, boxY, boxWidth, boxHeight);
             int textX = boxX + (boxWidth - strWidth) / 2;
             int textY = boxY + strHeight + pad;
-
+            ui.drawSubWindow(boxX, boxY, boxWidth, boxHeight);
             a2.setColor(Color.red);
-            a2.drawString(drawTimeStr, textX, textY);
+            a2.drawString(drawTimeStr, textX, textY-10);
 
             System.out.println("Draw time: " + passed);
         }

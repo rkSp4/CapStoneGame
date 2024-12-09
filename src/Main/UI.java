@@ -24,7 +24,7 @@ public class UI {
     public String currentDialogue = "";
     public int commandNum = 0;
     public int titleScreenState = 0;
-
+    public int substate = 0;
 
    double playTime;
    // DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -71,8 +71,9 @@ public class UI {
             //TIME
             playTime += (double)1/60;
             DecimalFormat dFormat = new DecimalFormat("#0.00");
-            g2.setColor(Color.black);
-            g2.fillRoundRect(gp.tileSize * 11, 18, gp.tileSize * 4, 63,35, 35);
+//            g2.setColor(Color.black);
+//            g2.fillRoundRect(gp.tileSize * 11, 18, gp.tileSize * 4, 63,35, 35);
+            drawSubWindow(gp.tileSize*11, 18, gp.tileSize*4, 63);
             g2.setColor(Color.white);
             g2.drawString(":"+dFormat.format(playTime), gp.tileSize*12, 65);
             g2.drawImage(timeI, gp.tileSize*11 + 7, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
@@ -94,6 +95,11 @@ public class UI {
         if(gp.gameState == gp.dialogueState) {
             drawPlayerLife();
             drawDialogueScreen();
+        }
+
+        //OPTIONS
+        if(gp.gameState == gp.optionState){
+            drawOptionsScreen();
         }
 
         if(messageOn)
@@ -258,12 +264,21 @@ public class UI {
             g2.drawString(">", x-gp.tileSize, y);
         }
 
+        //OPTIONS
+        text = "OPTIONS";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if(commandNum == 2){
+            g2.drawString(">", x-gp.tileSize, y);
+        }
+
         //QUIT GAME
         text = "EXIT GAME";
         x = getXtoCenter(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);
-        if(commandNum == 2){
+        if(commandNum == 3){
             g2.drawString(">", x-gp.tileSize, y);
         }
     }
@@ -341,6 +356,94 @@ public class UI {
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5, y+5, -10, -10, 25, 25);
     }
+
+    public void drawOptionsScreen(){
+        g2.setColor(Color.white);
+        g2.setFont(g2.getFont().deriveFont(32F));
+        //SUB WINDOW
+        int frameX = gp.tileSize*4;
+        int frameY = gp.tileSize;
+        int frameWidth = gp.tileSize*8;
+        int frameHeight = gp.tileSize*8;
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        //gp.keyH.enterPressed = false;
+
+        switch(substate){
+            case 0:
+                optionsTop(frameX, frameY);
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }
+
+    public void optionsTop(int frameX, int frameY){
+        int textX;
+        int textY;
+        g2.setFont(g2.getFont().deriveFont(29F));
+        //TITLE
+        String text = "OPTIONS";
+        textX = getXtoCenter(text);
+        textY = frameY + gp.tileSize;
+        g2.drawString(text, textX, textY);
+
+        //FULLSCREEN ON/OFF
+        textX = frameX + gp.tileSize;
+        textY +=gp.tileSize*2;
+        g2.drawString("Full Screen", textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-25, textY);
+            if(gp.keyH.enterPressed){
+                if(!gp.fullScreenOn){
+                    gp.fullScreenOn = true;
+                }else if(gp.fullScreenOn){
+                    gp.fullScreenOn = false;
+                }
+            }
+        }
+
+        //MUSIC
+        textY +=gp.tileSize;
+        g2.drawString("Music", textX, textY);
+        if(commandNum==1){
+            g2.drawString(">", textX-25, textY);
+        }
+
+        //SE
+        textY +=gp.tileSize;
+        g2.drawString("Sound FX", textX, textY);
+        if(commandNum==2){
+            g2.drawString(">", textX-25, textY);
+        }
+
+        //BACK
+        textY +=gp.tileSize*2;
+        g2.drawString("Back", textX, textY);
+        if(commandNum==3){
+            g2.drawString(">", textX-25, textY);
+        }
+
+        //FULLSCREEN BOX
+        textX = frameX + gp.tileSize*5;
+        textY = frameY + gp.tileSize*2 + 26;
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRect(textX, textY, 24, 24);
+        if(gp.fullScreenOn){
+            g2.fillRect(textX, textY, 24, 24);
+        }
+
+        //MUSIC VOLUME
+        textY += gp.tileSize;
+        g2.drawRect(textX, textY, 120, 24);
+
+        //SFX VOLUME
+        textY += gp.tileSize;
+        g2.drawRect(textX, textY, 120, 24);
+    }
+
     public int getXtoCenter(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return gp.screenWidth/2 - length/2;

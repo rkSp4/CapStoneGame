@@ -98,6 +98,12 @@ public class Player extends Entity{
 
             //IF COLLISION FALSE, PLAYER CAN MOVE
             if(!collisionOn) {
+                if(keyH.ctrlPressed){
+                    double speedTime = (double)1/60;
+                    if(speedTime<3){
+                        speed = 8;
+                    }
+                }
                 switch (direction) {
                     case "up":
                         worldY -= speed;
@@ -152,10 +158,11 @@ public class Player extends Entity{
                         }
                         break;
                     case "chest":
-                        gp.ui.gameFinished = true;
+                        gp.obj/*[gp.currentMap]*/[i] = null;
                         gp.stopMusic();
                         gp.playSE(4);
                         gp.ui.showMessage("CONGRATULATIONS!!! :>");
+                        gp.ui.gameFinished = true;
                         break;
                     case "boots":
                         gp.playSE(2);
@@ -179,11 +186,12 @@ public class Player extends Entity{
                         break;
                 }
             }
+
     }
     public void interactNPC(int i) {
         if(i != 999) {
             if(hasClaw > 0){
-                gp.npc[0]=null;
+                gp.npc/*[gp.currentMap]*/[0]=null;
             }
             if(gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;
