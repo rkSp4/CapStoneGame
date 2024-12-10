@@ -40,7 +40,6 @@ public class TileManager {
         setup(8, "grass00", false);
         setup(9, "grass00", false);
         //PLACEHOLDER//
-
         setup(10, "grass00", false);
         setup(11, "grass01", false);
         setup(12, "water00", true);
@@ -125,7 +124,6 @@ public class TileManager {
         setup(90, "watery75", true);
         setup(91, "watery76", true);
         setup(92, "bridge00", false);
-
 
     }
     public void setup(int index, String imageName, boolean collision) {
