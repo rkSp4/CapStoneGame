@@ -1,17 +1,16 @@
 package Object;
 
+import Entity.Entity;
 import Main.GamePanel;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class OBJ_CLAWS extends SuperObject{
+public class OBJ_CLAWS extends Entity {
     public OBJ_CLAWS(GamePanel gp) {
+        super(gp);
         name = "claws";
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/key.png"));
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        down1 = setup("/objects/key");
+
     }
 }
+

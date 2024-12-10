@@ -29,21 +29,21 @@ public class AssetSetter {
         gp.obj/*[mapNum]*/[1].worldX = 23 * gp.tileSize;
         gp.obj/*[mapNum]*/[1].worldY = 40 * gp.tileSize;
 
-        gp.obj/*[mapNum]*/[2] = new OBJ_DOOR(gp);
-        gp.obj/*[mapNum]*/[2].worldX = 38 * gp.tileSize;
-        gp.obj[/*[mapNum]*/2].worldY = 8 * gp.tileSize;
+        gp.obj/*[mapNum]*/[2] = new OBJ_KEY(gp);
+        gp.obj/*[mapNum]*/[2].worldX = 33 * gp.tileSize;
+        gp.obj[/*[mapNum]*/2].worldY = 7 * gp.tileSize;
 
         gp.obj/*[mapNum]*/[3] = new OBJ_DOOR(gp);
         gp.obj/*[mapNum]*/[3].worldX = 10 * gp.tileSize;
-        gp.obj/*[mapNum]*/[3].worldY = 11 * gp.tileSize;
+        gp.obj/*[mapNum]*/[3].worldY = 12 * gp.tileSize;
 
         gp.obj/*[mapNum]*/[4] = new OBJ_DOOR(gp);
         gp.obj/*[mapNum]*/[4].worldX = 8 * gp.tileSize;
         gp.obj/*[mapNum]*/[4].worldY = 28 * gp.tileSize;
 
         gp.obj/*[mapNum]*/[5] = new OBJ_DOOR(gp);
-        gp.obj/*[mapNum]*/[5].worldX = 12 * gp.tileSize;
-        gp.obj/*[mapNum]*/[5].worldY = 22 * gp.tileSize;
+        gp.obj/*[mapNum]*/[5].worldX = 14 * gp.tileSize;
+        gp.obj/*[mapNum]*/[5].worldY = 28 * gp.tileSize;
 
         gp.obj/*[mapNum]*/[6] = new OBJ_CHEST(gp);
         gp.obj/*[mapNum]*/[6].worldX = 10 * gp.tileSize;
