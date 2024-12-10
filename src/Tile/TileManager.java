@@ -5,11 +5,11 @@ import Main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class TileManager {
     GamePanel gp;
@@ -134,7 +134,7 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/" + imageName + ".png")));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
 
@@ -146,6 +146,7 @@ public class TileManager {
     public void loadMap(String filePath/* , int map */) {
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
+            assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -155,7 +156,7 @@ public class TileManager {
                 String line = br.readLine();
 
                 while(col < gp.maxWorldCol) {
-                    String numbers[] = line.split(" ");
+                    String[] numbers= line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
                     //kanang map is for transitioning of maps
@@ -170,7 +171,7 @@ public class TileManager {
             br.close();
         }
         catch(Exception e) {
-
+            e.printStackTrace();
         }
     }
 
