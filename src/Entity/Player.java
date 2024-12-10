@@ -2,14 +2,11 @@ package Entity;
 
 import Main.GamePanel;
 import Main.KeyHandler;
-import Main.UtilityTool;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.nio.Buffer;
-import java.sql.SQLOutput;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Player extends Entity{
 
@@ -19,8 +16,16 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     public int haskey = 0;
-    public boolean hasClaw = false;
-
+    //CLAW
+    public boolean clawActive = false;
+    public boolean clawCD;
+    public final int clawDuration = 5000;
+    public final int clawCoolDown = 10000;
+    //SPRINT
+    public boolean sprintActive = false;
+    public boolean sprintCD;
+    public final int sprintDuration = 5000;
+    public final int sprintCoolDown = 10000;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -98,11 +103,10 @@ public class Player extends Entity{
 
             //IF COLLISION FALSE, PLAYER CAN MOVE
             if(!collisionOn) {
-                if(keyH.ctrlPressed){
-                    double speedTime = (double)1/60;
-                    if(speedTime<3){
-                        speed = 8;
-                    }
+                if(sprintActive){
+                    speed=8;
+                }else{
+                    speed=4;
                 }
                 switch (direction) {
                     case "up":
@@ -130,9 +134,83 @@ public class Player extends Entity{
                 }
                 spriteCounter = 0;
             }
-
+        }
+        //CLAW ABILITY
+        if(keyH.claw) {
+            if (clawCD) {
+                gp.ui.showMessage("Claw is on cooldown!");
+            }else if(clawActive){
+                gp.ui.showMessage("Your claws are sharp!");
+            }else{
+                Claw();
+            }
+            keyH.claw = false;
         }
 
+        //SPRINT ABILITY
+        if(keyH.sprint) {
+            if (sprintCD) {
+                gp.ui.showMessage("Sprint is on cooldown!");
+            }else if(sprintActive){
+                gp.ui.showMessage("You are bursting with energy!");
+            }else{
+                Sprint();
+            }
+            keyH.sprint = false;
+        }
+    }
+
+    public void Claw(){
+        clawActive = true;
+        gp.ui.showMessage("You are now dangerous!");
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                clawActive = false;
+                gp.ui.showMessage("You retract your claws.");
+                clawCoolDown();
+            }
+        }, clawDuration);
+    }
+
+    public void clawCoolDown(){
+        clawCD = true;
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                clawCD = false;
+                gp.ui.showMessage("Claw is ready!");
+            }
+        }, clawCoolDown);
+    }
+
+    //SPRINT ABILITY
+    public void Sprint(){
+        sprintActive = true;
+        gp.ui.showMessage("You are now agile!");
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sprintActive = false;
+                gp.ui.showMessage("You grow tired.");
+                sprintCoolDown();
+            }
+        }, sprintDuration);
+    }
+
+    public void sprintCoolDown(){
+        sprintCD = true;
+
+        new Timer().schedule(new TimerTask() {
+            @Override
+            public void run() {
+                sprintCD = false;
+                gp.ui.showMessage("Sprint is ready!");
+            }
+        }, sprintCoolDown);
     }
 
     public void pickUp0bject(int i){
@@ -171,25 +249,13 @@ public class Player extends Entity{
                         gp.gameState=gp.dialogueState;
                         gp.ui.currentDialogue="You have become agile!";
                         break;
-                    case "claws":
-                        gp.playSE(2);
-                        gp.obj/*[gp.currentMap]*/[i] = null;
-                        gp.gameState=gp.dialogueState;
-                        gp.ui.currentDialogue="You have become dangerous!";
-                        break;
-                    case "shadow":
-                        gp.playSE(2);
-                        gp.obj/*[gp.currentMap]*/[i] = null;
-                        gp.gameState=gp.dialogueState;
-                        gp.ui.currentDialogue="You have become sneaky!";
-                        break;
                 }
             }
 
     }
     public void interactNPC(int i) {
         if(i != 999) {
-            if(hasClaw){
+            if(clawActive){
                 gp.npc/*[gp.currentMap]*/[0]=null;
             }
             if(gp.keyH.enterPressed) {

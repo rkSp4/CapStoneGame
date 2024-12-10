@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener{
 
     GamePanel gp;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed, claw, sprint;
     boolean checkDrawTime = false;
     public int look = 0; //0-Down 1-Right 2-Up 3-Left
 
@@ -127,28 +127,14 @@ public class KeyHandler implements KeyListener{
             }
             //CLAW
             if(code == KeyEvent.VK_C){
-                gp.player.hasClaw = true;
+                claw = true;
                 gp.playSE(1);
-
-                switch(look){
-                    case 0:
-                            downPressed = true;
-                        break;
-                    case 1:
-                        rightPressed = true;
-                        break;
-                    case 2:
-                        upPressed = true;
-                        break;
-                    case 3:
-                        leftPressed = true;
-                        break;
-                }
             }
 
             //SPRINT
             if(code == KeyEvent.VK_V){
-                //do sprint
+                sprint = true;
+                gp.playSE(2);
             }
 
             if(code == KeyEvent.VK_ESCAPE){

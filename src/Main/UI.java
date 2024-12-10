@@ -25,6 +25,7 @@ public class UI {
     public int commandNum = 0;
     public int titleScreenState = 0;
     public int substate = 0;
+    public boolean newGame = true;
 
    double playTime;
    // DecimalFormat dFormat = new DecimalFormat("#0.00");
@@ -172,7 +173,11 @@ public class UI {
             //MENU
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
 
-            text = "NEW GAME";
+            if(newGame) {
+                text = "NEW GAME";
+            }else{
+                text = "LOAD GAME";
+            }
             x = getXtoCenter(text);
             y += gp.tileSize*4;
             g2.drawString(text, x, y);
@@ -180,27 +185,16 @@ public class UI {
                 g2.drawString(">", x-gp.tileSize, y);
                 if(gp.keyH.enterPressed){
                     gp.ui.titleScreenState = 1;
-                }
-                gp.keyH.enterPressed = false;
-            }
-
-            text = "LOAD GAME";
-            x = getXtoCenter(text);
-            y += gp.tileSize;
-            g2.drawString(text, x, y);
-            if(commandNum==1){
-                g2.drawString(">", x-gp.tileSize, y);
-                if(gp.keyH.enterPressed){
-                    gp.ui.titleScreenState = 1;
+                    newGame = false;
                 }
                 gp.keyH.enterPressed = false;
             }
 
             text = "QUIT";
             x = getXtoCenter(text);
-            y += gp.tileSize;
+            y += gp.tileSize*2;
             g2.drawString(text, x, y);
-            if(commandNum==2){
+            if(commandNum==1){
                 g2.drawString(">", x-gp.tileSize, y);
                 if(gp.keyH.enterPressed){
                     System.exit(0);
