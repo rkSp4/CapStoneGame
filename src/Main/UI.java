@@ -476,7 +476,6 @@ public class UI {
             g2.drawString(">", textX-25, textY);
             if(gp.keyH.enterPressed){
                 gp.gameState = gp.playState;
-                gp.playMusic(0);
                 commandNum=0;
             }
             gp.keyH.enterPressed = false;
@@ -493,11 +492,15 @@ public class UI {
 
         //MUSIC VOLUME
         textY += gp.tileSize;
-        g2.drawRect(textX, textY, 120, 24);
+        g2.drawRect(textX, textY, 120, 24);//width divide by volScale
+        int volumeWidth = 24*gp.music.volumeScale;      //width divide by volScale
+        g2.fillRect(textX, textY, volumeWidth, 24);
 
         //SFX VOLUME
         textY += gp.tileSize;
         g2.drawRect(textX, textY, 120, 24);
+        volumeWidth = 24*gp.se.volumeScale;
+        g2.fillRect(textX, textY, volumeWidth, 24);
     }
 
     public void options_FullScreenNotif(int frameX, int frameY){

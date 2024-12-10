@@ -128,7 +128,6 @@ public class KeyHandler implements KeyListener{
 
             if(code == KeyEvent.VK_H){
                 gp.gameState = gp.optionState;
-                gp.stopMusic();
                 gp.ui.commandNum=0;
             }
         }
@@ -145,7 +144,7 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_P || code == KeyEvent.VK_ESCAPE) {
             if (gp.gameState == gp.playState) {
                 gp.gameState = gp.pauseState;
-                gp.stopMusic();
+                    gp.stopMusic();
                 gp.ui.commandNum=0;
             }
         }
@@ -237,6 +236,32 @@ public class KeyHandler implements KeyListener{
                 }
             }
 
+            if(code == KeyEvent.VK_A){
+                if(gp.ui.substate == 0){
+                    if(gp.ui.commandNum == 1 && gp.music.volumeScale > 0){
+                        gp.music.volumeScale--;
+                        gp.music.checkVolume();
+                        //gp.playSE();
+                    }
+                    if(gp.ui.commandNum == 2 && gp.se.volumeScale > 0){
+                        gp.se.volumeScale--;
+                        //gp.playSE();
+                    }
+                }
+            }
+            if(code == KeyEvent.VK_D){
+                if(gp.ui.substate == 0){
+                    if(gp.ui.commandNum == 1 && gp.music.volumeScale < 5){
+                        gp.music.volumeScale++;
+                        gp.music.checkVolume();
+                        //gp.playSE();
+                    }
+                    if(gp.ui.commandNum == 2 && gp.se.volumeScale < 5){
+                        gp.se.volumeScale++;
+                        //gp.playSE();
+                    }
+                }
+            }
 
         }
     }
