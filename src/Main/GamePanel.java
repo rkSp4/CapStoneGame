@@ -15,9 +15,8 @@ public class GamePanel extends JPanel implements Runnable {
     //SCREEN SETTINGS
     final int originalTitleSize = 16;
     final int scale = 3;
-
     public final int tileSize = originalTitleSize * scale;
-    public final int maxScreenCol = 16;
+    public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;
     public final int screenHeight = tileSize * maxScreenRow;
@@ -48,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public EventHandler eHandler = new EventHandler(this);
+    Config config = new Config(this);
     Thread gameThread;
 
     //PLAYER & ENTITY PS:para nis mga NPC'S kaning gi comment out,rason kay para dili mu overlap ang npc sa lain map
@@ -83,7 +83,26 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNPC();
         gameState = titleState;
+
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        g2 = (Graphics2D)tempScreen.getGraphics();
+
+        if(fullScreenOn) {
+            setFullScreen();
+        }
     }
+
+    public void setFullScreen(){
+        //GET LOCAL SCREEN DEVICE
+        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(Main.window);
+
+        //GET FULL SCREEN WIDTH AND HEIGHT
+        ScreenWidth2 = Main.window.getWidth();
+        ScreenHeight2 = Main.window.getHeight();
+    }
+
     public void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
@@ -108,7 +127,8 @@ public class GamePanel extends JPanel implements Runnable {
 
             if(delta >= 1) {
                 update();
-                repaint();
+                drawToTempScreen();
+                drawToScreen();
                 delta--;
                 drawCount++;
             }
@@ -161,42 +181,38 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
 
-    public void paintComponent(Graphics a) {
-        super.paintComponent(a);
-        Graphics2D a2 = (Graphics2D) a;
-
+    public void drawToTempScreen(){
         //DEBUG
-
         long drawStart = 0;
         if (keyH.checkDrawTime) {
             drawStart = System.nanoTime();
         }
         //TITLE
         if (gameState == titleState) {
-            ui.draw(a2);
+            ui.draw(g2);
         } else {
             //TILE
-            tileM.draw(a2);
+            tileM.draw(g2);
 
             //OBJECT
             for (int i = 0; i < obj.length; i++) {
                 if (obj[i] != null) {
-                    obj[i].draw(a2, this);
+                    obj[i].draw(g2, this);
                 }
             }
 
             //NPC
             for (int i = 0; i < npc.length; i++) {
                 if (npc[i] != null) {
-                    npc[i].draw(a2);
+                    npc[i].draw(g2);
                 }
             }
 
             //PLAYER
-            player.draw(a2);
+            player.draw(g2);
 
             //UI
-            ui.draw(a2);
+            ui.draw(g2);
         }
 //        if(keyH.checkDrawTime == true)
 //        {
@@ -210,9 +226,9 @@ public class GamePanel extends JPanel implements Runnable {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
 
-            a2.setColor(Color.red);
+            g2.setColor(Color.red);
             String drawTimeStr = "Draw Time: " + passed;
-            FontMetrics fm = a2.getFontMetrics(a2.getFont());
+            FontMetrics fm = g2.getFontMetrics(g2.getFont());
             int strWidth = fm.stringWidth(drawTimeStr);
             int strHeight = fm.getHeight();
             int pad = 10;
@@ -220,21 +236,22 @@ public class GamePanel extends JPanel implements Runnable {
             int boxY = 400 - strHeight - pad;
             int boxWidth = strWidth + 2 * pad;
             int boxHeight = strHeight + 2 * pad;
-//            a2.setColor(Color.black);
-//            a2.fillRect(boxX, boxY, boxWidth, boxHeight);
             int textX = boxX + (boxWidth - strWidth) / 2;
             int textY = boxY + strHeight + pad;
             ui.drawSubWindow(boxX, boxY, boxWidth, boxHeight);
-            a2.setColor(Color.red);
-            a2.drawString(drawTimeStr, textX, textY-10);
+            g2.setColor(Color.red);
+            g2.drawString(drawTimeStr, textX, textY-10);
 
             System.out.println("Draw time: " + passed);
         }
-
-        a2.dispose();
-
     }
 
+    public void drawToScreen(){
+
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, ScreenWidth2, ScreenHeight2, null);
+        g.dispose();
+    }
 
     public void playMusic(int i){
         music.setFile(i);
