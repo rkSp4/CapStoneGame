@@ -153,7 +153,7 @@ public class UI {
             g2.fillRect(0, 0, gp.ScreenWidth2, gp.ScreenHeight2);
             //NAME
             g2.setFont(g2.getFont().deriveFont(Font.BOLD,69F));
-            String text = "Paws and Shadows";
+            String text = "Cat Collection";
             int x = getXtoCenter(text);
             int y = gp.tileSize*3;
 

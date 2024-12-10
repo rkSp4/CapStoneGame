@@ -10,7 +10,7 @@ Main {
     window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false);
-    window.setTitle("2D Kitty Adventure");
+    window.setTitle("Cat Collection");
 
 
     GamePanel gamePanel = new GamePanel();
