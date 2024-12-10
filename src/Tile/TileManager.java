@@ -18,12 +18,11 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[50];
+        tile = new Tile[95];
         mapTileNum = new int/*[gp.maxMap]*/[gp.maxWorldCol][gp.maxWorldRow];
 
-
         getTileImage();
-        loadMap("/maps/worldV2.txt"/*, 0*/);
+        loadMap("/maps/worldV8.txt"/*, 0*/);
         //loadMap("maps/interior01.txt", 1);
 
     }
@@ -74,6 +73,57 @@ public class TileManager {
         setup(39, "earth", false);
         setup(40, "wall", true);
         setup(41, "tree", true);
+        setup(42, "bricks", true);
+        setup(43, "deadtree", true);
+        setup(44, "swamp", false);
+        //dessert
+        setup(45, "cacti43", true);
+        setup(46, "cliff77", true);
+        setup(47, "cliff78", true);
+        setup(48, "cliff79", true);
+        setup(49, "cliff80", true);
+        setup(50, "cliff81", true);
+        setup(51, "cliff82", true);
+        setup(52, "cliff83", true);
+        setup(53, "cliff84", true);
+        setup(54, "cliff85", true);
+        setup(55, "cliff86", true);
+        setup(56, "cliff87", true);
+        setup(57, "cliff88", true);
+        setup(58, "rock42", true);
+        setup(59, "sand48", false);
+        setup(60, "sand49", false);
+        setup(61, "sandy50", false);
+        setup(62, "sandy51", false);
+        setup(63, "sandy52", false);
+        setup(64, "sandy53", false);
+        setup(65, "sandy54", false);
+        setup(66, "sandy55", false);
+        setup(67, "sandy56", false);
+        setup(68, "sandy57", false);
+        setup(69, "sandy58", false);
+        setup(70, "sandy59", false);
+        setup(71, "sandy60", false);
+        setup(72, "sandy61", false);
+        setup(73, "sandy62", false);
+        setup(74, "tree44", true);
+        setup(75, "tree45", true);
+        setup(76, "tree46", true);
+        setup(77, "wall47", true);
+        setup(78, "watery63", true);
+        setup(79, "watery64", true);
+        setup(80, "watery65", true);
+        setup(81, "watery66", true);
+        setup(82, "watery67", true);
+        setup(83, "watery68", true);
+        setup(84, "watery69", true);
+        setup(85, "watery70", true);
+        setup(86, "watery71", true);
+        setup(87, "watery72", true);
+        setup(88, "watery73", true);
+        setup(89, "watery74", true);
+        setup(90, "watery75", true);
+        setup(91, "watery76", true);
 
     }
     public void setup(int index, String imageName, boolean collision) {
