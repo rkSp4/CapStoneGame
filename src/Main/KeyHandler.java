@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener{
 
     GamePanel gp;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed, hasClaw, hasSprint;
     boolean checkDrawTime = false;
 
     public KeyHandler(GamePanel gp){
@@ -48,15 +48,7 @@ public class KeyHandler implements KeyListener{
                 }
 
                 if (code == KeyEvent.VK_ENTER) {
-                    if (gp.ui.commandNum == 0) {
-                        gp.ui.titleScreenState = 1;
-                    }
-                    if (gp.ui.commandNum == 1) {
-                        //add later
-                    }
-                    if (gp.ui.commandNum == 2) {
-                        System.exit(0);
-                    }
+                    enterPressed = true;
                 }
             }
             else if(gp.ui.titleScreenState == 1) {
@@ -83,24 +75,13 @@ public class KeyHandler implements KeyListener{
                 }
 
                 if (code == KeyEvent.VK_ENTER) {
-                    //ORANGE CAT
-                    if (gp.ui.commandNum == 0) {
-                        //gp.player[0];
-                        gp.gameState = gp.playState;
-                    }
-                    //WHITE CAT
-                    if (gp.ui.commandNum == 1) {
-                        //gp.player[1];
-                        gp.gameState = gp.playState;
-                    }
-                    if (gp.ui.commandNum == 2) {
-                        gp.ui.titleScreenState = 0;
-                    }
+                    enterPressed = true;
                 }
             }
         }
         //PLAY STATE
         if(gp.gameState == gp.playState){
+            //DEV MODE
             if(code == KeyEvent.VK_CAPS_LOCK){
                 if(!gp.devMode) {
                     System.out.println("Developer options are turned on!");
@@ -130,36 +111,37 @@ public class KeyHandler implements KeyListener{
                 rightPressed = true;
             }
 
-            //sprint
-            if(code == KeyEvent.VK_CONTROL){
-                ctrlPressed = true;
-            }
-            if(code == KeyEvent.VK_H){
-                gp.gameState = gp.optionState;
-            }
-
             if(code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             }
+
+            //ABILITIES
+            //CLAW
+            if(code == KeyEvent.VK_C){
+                hasClaw = true;
+            }
+
+            //SPRINT
+            if(code == KeyEvent.VK_V){
+                hasSprint = true;
+            }
+
+            if(code == KeyEvent.VK_H){
+                gp.gameState = gp.optionState;
+                gp.stopMusic();
+                gp.ui.commandNum=0;
+            }
         }
 
-
         //Debug
-        if(code == KeyEvent.VK_T){
+        if(gp.devMode && code == KeyEvent.VK_T){
             if(!checkDrawTime) {
                 checkDrawTime = true;
             } else if (checkDrawTime) {
                 checkDrawTime = false;
             }
         }
-        //WAKO KAHIBAW ASA NI GIKAN NING PANG REFRESH SA MAP, UNTA KAHIBAW MO INGNA LANG KO
-        /*
-        if(code == KeyEvent.VK_R) {
-            switch(gp.currentMap) {
-            case 0: gp.tileM.loadMap("/maps/worldV3.txt", 0); break;
-            case 0: gp.tileM.loadMap("/maps/interior01.txt", 1); break;
-         */
-
+        //PAUSE
         if(code == KeyEvent.VK_P || code == KeyEvent.VK_ESCAPE) {
             if (gp.gameState == gp.playState) {
                 gp.gameState = gp.pauseState;
@@ -168,40 +150,32 @@ public class KeyHandler implements KeyListener{
             }
         }
 
+        //WAKO KAHIBAW ASA NI GIKAN NING PANG REFRESH SA MAP, UNTA KAHIBAW MO INGNA LANG KO
+
+//        if(code == KeyEvent.VK_R) {
+//            switch(gp.currentMap) {
+//            case 0: gp.tileM.loadMap("/maps/worldV3.txt", 0); break;
+//            case 0: gp.tileM.loadMap("/maps/interior01.txt", 1); break;
+
         //PAUSE STATE
         if (gp.gameState == gp.pauseState){
 
             if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                 gp.ui.commandNum--;
                 if (gp.ui.commandNum < 0) {
-                    gp.ui.commandNum = 3;
+                    gp.ui.commandNum = 2;
                 }
             }
 
             if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 gp.ui.commandNum++;
-                if (gp.ui.commandNum > 3) {
+                if (gp.ui.commandNum > 2) {
                     gp.ui.commandNum = 0;
                 }
             }
 
             if (code == KeyEvent.VK_ENTER) {
-                if (gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
-                }
-                if (gp.ui.commandNum == 1) {
-                    gp.gameState = gp.titleState;
-                    gp.ui.titleScreenState = 0;
-                    gp.playMusic(0);
-                }
-                if(gp.ui.commandNum == 2){
-                    gp.gameState = gp.optionState;
-                    gp.ui.commandNum = 0;
-                }
-                if (gp.ui.commandNum == 3) {
-                    System.exit(0);
-                }
+                enterPressed=true;
             }
         }
         //OVERSTATE
@@ -221,17 +195,11 @@ public class KeyHandler implements KeyListener{
             }
 
             if (code == KeyEvent.VK_ENTER) {
-                if (gp.ui.commandNum == 0) {
-                    gp.gameState = gp.playState;
-                    gp.playMusic(0);
-                }
-                if (gp.ui.commandNum == 1) {
-                    System.exit(0);
-                }
+                enterPressed = true;
             }
         }
         //DIALOGUE STATE
-        else if(gp.gameState == gp.dialogueState) {
+        if(gp.gameState == gp.dialogueState) {
             if(code == KeyEvent.VK_ENTER) {
                 gp.gameState = gp.playState;
             }
@@ -277,10 +245,6 @@ public class KeyHandler implements KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
-
-        if(code == KeyEvent.VK_ENTER) {
-            enterPressed = false;
-        }
 
         if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
             upPressed = false;

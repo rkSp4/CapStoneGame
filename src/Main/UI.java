@@ -81,7 +81,6 @@ public class UI {
             drawPlayerLife();
         }//PAUSE STATE
         if(gp.gameState == gp.pauseState){
-            drawPlayerLife();
             drawPauseScreen();
 
         }
@@ -151,7 +150,7 @@ public class UI {
     public void drawTitleScreen(){
         if(titleScreenState == 0){
             g2.setColor(new Color(70, 120 , 80));
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+            g2.fillRect(0, 0, gp.ScreenWidth2, gp.ScreenHeight2);
             //NAME
             g2.setFont(g2.getFont().deriveFont(Font.BOLD,69F));
             String text = "Paws and Shadows";
@@ -179,6 +178,10 @@ public class UI {
             g2.drawString(text, x, y);
             if(commandNum==0){
                 g2.drawString(">", x-gp.tileSize, y);
+                if(gp.keyH.enterPressed){
+                    gp.ui.titleScreenState = 1;
+                }
+                gp.keyH.enterPressed = false;
             }
 
             text = "LOAD GAME";
@@ -187,6 +190,10 @@ public class UI {
             g2.drawString(text, x, y);
             if(commandNum==1){
                 g2.drawString(">", x-gp.tileSize, y);
+                if(gp.keyH.enterPressed){
+                    gp.ui.titleScreenState = 1;
+                }
+                gp.keyH.enterPressed = false;
             }
 
             text = "QUIT";
@@ -195,34 +202,51 @@ public class UI {
             g2.drawString(text, x, y);
             if(commandNum==2){
                 g2.drawString(">", x-gp.tileSize, y);
+                if(gp.keyH.enterPressed){
+                    System.exit(0);
+                }
             }
         }
         else if(titleScreenState == 1){
+            g2.setColor(new Color(70, 120 , 80));
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
             //CAT SELECTION
             g2.setColor(Color.WHITE);
             g2.setFont(g2.getFont().deriveFont(42F));
-
             String text = "Select your Cat!";
             int x = getXtoCenter(text);
             int y = gp.tileSize*3;
             g2.drawString(text, x, y);
 
             text = "CAT1";
-            x = gp.tileSize*4;
+            x = gp.tileSize*5;
             y = gp.tileSize*9;
             g2.drawString(text, x, y);
             g2.drawImage(gp.player.tab, x - gp.tileSize, y-gp.tileSize*5, gp.tileSize*4, gp.tileSize*4, null);
             if(commandNum == 0){
                 g2.drawString(">", x-gp.tileSize, y);
+                if(gp.keyH.enterPressed){
+                    //gp.player[0];
+                    gp.gameState = gp.playState;
+                    commandNum=0;
+                }
+                gp.keyH.enterPressed = false;
             }
 
             text = "CAT2";
-            x += gp.tileSize*6;
+            x += gp.tileSize*8;
             //y = gp.tileSize*9;
             g2.drawImage(gp.player.white, x - gp.tileSize, y-gp.tileSize*5, gp.tileSize*4, gp.tileSize*4, null);
             g2.drawString(text, x, y);
             if(commandNum == 1){
                 g2.drawString(">", x-gp.tileSize, y);
+                if(gp.keyH.enterPressed){
+                    //gp.player[1];
+                    gp.gameState = gp.playState;
+                    commandNum=0;
+                }
+                gp.keyH.enterPressed = false;
             }
 
             text = "BACK";
@@ -231,6 +255,11 @@ public class UI {
             g2.drawString(text, x, y);
             if(commandNum == 2){
                 g2.drawString(">", x-gp.tileSize, y);
+                if(gp.keyH.enterPressed){
+                    gp.ui.titleScreenState = 0;
+                }
+                gp.keyH.enterPressed = false;
+
             }
         }
 
@@ -243,10 +272,10 @@ public class UI {
         int y = gp.screenHeight/2;
 
         g2.drawString(text, x, y);
-        //commandNum = 0;
 
         g2.setColor(Color.WHITE);
         g2.setFont(g2.getFont().deriveFont(42F));
+
         //CONTINUE GAME
         text = "CONTINUE";
         x = getXtoCenter(text);
@@ -254,7 +283,14 @@ public class UI {
         g2.drawString(text, x, y);
         if(commandNum == 0){
             g2.drawString(">", x-gp.tileSize, y);
+            if (gp.keyH.enterPressed) {
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
+                commandNum=0;
+            }
+            gp.keyH.enterPressed = false;
         }
+
         //TITLE SCREEN
         text = "TITLE SCREEN";
         x = getXtoCenter(text);
@@ -262,15 +298,13 @@ public class UI {
         g2.drawString(text, x, y);
         if(commandNum == 1){
             g2.drawString(">", x-gp.tileSize, y);
-        }
-
-        //OPTIONS
-        text = "OPTIONS";
-        x = getXtoCenter(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if(commandNum == 2){
-            g2.drawString(">", x-gp.tileSize, y);
+            if (gp.keyH.enterPressed) {
+                gp.gameState = gp.titleState;
+                gp.ui.titleScreenState = 0;
+                gp.playMusic(0);
+                commandNum=0;
+            }
+            gp.keyH.enterPressed = false;
         }
 
         //QUIT GAME
@@ -278,8 +312,11 @@ public class UI {
         x = getXtoCenter(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);
-        if(commandNum == 3){
+        if(commandNum == 2){
             g2.drawString(">", x-gp.tileSize, y);
+            if (gp.keyH.enterPressed) {
+                System.exit(0);
+            }
         }
     }
 
@@ -315,6 +352,12 @@ public class UI {
         g2.drawString(text, x, y);
         if(commandNum==0){
             g2.drawString(">", x-gp.tileSize, y);
+            if (gp.keyH.enterPressed) {
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
+                commandNum=0;
+            }
+            gp.keyH.enterPressed = false;
         }
 
         text = "QUIT GAME";
@@ -323,6 +366,9 @@ public class UI {
         g2.drawString(text, x, y);
         if(commandNum==1){
             g2.drawString(">", x-gp.tileSize, y);
+            if (gp.keyH.enterPressed) {
+                System.exit(0);
+            }
         }
     }
 
@@ -374,6 +420,7 @@ public class UI {
                 optionsTop(frameX, frameY);
                 break;
             case 1:
+                options_FullScreenNotif(frameX, frameY);
                 break;
             case 2:
                 break;
@@ -402,6 +449,9 @@ public class UI {
                 }else if(gp.fullScreenOn){
                     gp.fullScreenOn = false;
                 }
+                substate=1;
+                commandNum=0;
+                gp.keyH.enterPressed = false;
             }
         }
 
@@ -424,6 +474,12 @@ public class UI {
         g2.drawString("Back", textX, textY);
         if(commandNum==3){
             g2.drawString(">", textX-25, textY);
+            if(gp.keyH.enterPressed){
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
+                commandNum=0;
+            }
+            gp.keyH.enterPressed = false;
         }
 
         //FULLSCREEN BOX
@@ -444,6 +500,28 @@ public class UI {
         g2.drawRect(textX, textY, 120, 24);
     }
 
+    public void options_FullScreenNotif(int frameX, int frameY){
+        int textX = frameX + gp.tileSize;
+        int textY = frameY + gp.tileSize*3;
+
+        currentDialogue = "The change will take \neffect after restarting \nthe game.";
+
+        for(String line: currentDialogue.split("\n")){
+            g2.drawString(line, textX, textY);
+            textY+=40;
+        }
+
+        //BACK
+        textY +=gp.tileSize*2;
+        g2.drawString("Back", textX, textY);
+        if(commandNum==0){
+            g2.drawString(">", textX-25, textY);
+            if(gp.keyH.enterPressed){
+                substate=0;
+            }
+            gp.keyH.enterPressed=false;
+        }
+    }
     public int getXtoCenter(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         return gp.screenWidth/2 - length/2;
