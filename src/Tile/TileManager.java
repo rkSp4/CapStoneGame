@@ -73,9 +73,9 @@ public class TileManager {
         setup(39, "earth", false);
         setup(40, "wall", true);
         setup(41, "tree", true);
-        setup(42, "bricks", true);
-        setup(43, "deadtree", true);
-        setup(44, "swamp", false);
+        setup(42, "bridge01", false);
+        setup(43, "bridge02", false);
+        setup(44, "bridge", false);
         //dessert
         setup(45, "cacti43", true);
         setup(46, "cliff77", true);
@@ -91,8 +91,8 @@ public class TileManager {
         setup(56, "cliff87", true);
         setup(57, "cliff88", true);
         setup(58, "rock42", true);
-        setup(59, "sand48", false);
-        setup(60, "sand49", false);
+        setup(59, "sandy48", false);
+        setup(60, "sandy49", false);
         setup(61, "sandy50", false);
         setup(62, "sandy51", false);
         setup(63, "sandy52", false);
@@ -124,6 +124,8 @@ public class TileManager {
         setup(89, "watery74", true);
         setup(90, "watery75", true);
         setup(91, "watery76", true);
+        setup(92, "bridge00", false);
+
 
     }
     public void setup(int index, String imageName, boolean collision) {
