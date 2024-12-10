@@ -2,11 +2,14 @@ package Main;
 
 import Entity.Entity;
 import Entity.Player;
-import Object.SuperObject;
+//import Object.SuperObject;
 import Tile.TileManager;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 //import java.sql.SQLOutput;
 import javax.swing.JPanel;
 
@@ -52,8 +55,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     //PLAYER & ENTITY PS:para nis mga NPC'S kaning gi comment out,rason kay para dili mu overlap ang npc sa lain map
     public Player player = new Player(this, keyH);
-    public SuperObject[]/*[]*/ obj = new SuperObject[10];
+    public Entity[]/*[]*/ obj = new Entity[10];
     public Entity[]/*[]*/ npc = new Entity/*[maxMap]*/[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
     public boolean devMode = false;
 
     //GAME STATE
@@ -193,20 +197,37 @@ public class GamePanel extends JPanel implements Runnable {
         } else {
             //TILE
             tileM.draw(g2);
+            entityList.add(player);
 
-            //OBJECT
-            for (int i = 0; i < obj.length; i++) {
-                if (obj[i] != null) {
-                    obj[i].draw(g2, this);
+            entityList.add(player);
+            for(int i=0;i<npc.length;i++) {
+                if(npc[i] != null) {
+                    entityList.add(npc[i]);
                 }
             }
-
-            //NPC
-            for (int i = 0; i < npc.length; i++) {
-                if (npc[i] != null) {
-                    npc[i].draw(g2);
+            for(int i=0;i< obj.length;i++) {
+                if(obj[i] != null) {
+                    entityList.add(obj[i]);
                 }
             }
+            //SORT
+            Collections.sort(entityList, new Comparator<Entity>() {
+                @Override
+                public int compare(Entity o1, Entity o2) {
+                    int result = Integer.compare(o1.worldY, o2.worldY);
+                    return 0;
+                }
+            });
+
+            //DRAW ENTITIES
+            for(int i = 0; i < entityList.size(); i++) {
+                entityList.get(i).draw(g2);
+            }
+            //EMPTY LIST
+            for(int i = 0; i < entityList.size(); i++) {
+                entityList.remove(i);
+            }
+
 
             //PLAYER
             player.draw(g2);

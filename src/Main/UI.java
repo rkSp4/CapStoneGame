@@ -2,7 +2,8 @@ package Main;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
-import Object.SuperObject;
+//import Object.SuperObject;
+import Entity.Entity;
 import Object.OBJ_KEY;
 import Object.OBJ_TIME;
 import Object.OBJ_HEART;
@@ -41,7 +42,7 @@ public class UI {
 
 
         //CREATE HUB OBJECT
-        SuperObject heart = new OBJ_HEART(gp);
+        Entity heart = new OBJ_HEART(gp);
         hfull = heart.image;
         hhalf = heart.image2;
         hblank = heart.image3;

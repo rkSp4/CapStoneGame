@@ -1,4 +1,4 @@
-package Object;
+/*package Object;
 
 import Main.GamePanel;
 import Main.UtilityTool;
@@ -30,3 +30,4 @@ public class SuperObject{
         }
     }
 }
+ */
