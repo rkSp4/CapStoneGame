@@ -5,11 +5,11 @@ import Main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class TileManager {
     GamePanel gp;
@@ -40,7 +40,6 @@ public class TileManager {
         setup(8, "grass00", false);
         setup(9, "grass00", false);
         //PLACEHOLDER//
-
         setup(10, "grass00", false);
         setup(11, "grass01", false);
         setup(12, "water00", true);
@@ -73,9 +72,9 @@ public class TileManager {
         setup(39, "earth", false);
         setup(40, "wall", true);
         setup(41, "tree", true);
-        setup(42, "bricks", true);
-        setup(43, "deadtree", true);
-        setup(44, "swamp", false);
+        setup(42, "bridge01", false);
+        setup(43, "bridge02", false);
+        setup(44, "bridge", false);
         //dessert
         setup(45, "cacti43", true);
         setup(46, "cliff77", true);
@@ -91,8 +90,8 @@ public class TileManager {
         setup(56, "cliff87", true);
         setup(57, "cliff88", true);
         setup(58, "rock42", true);
-        setup(59, "sand48", false);
-        setup(60, "sand49", false);
+        setup(59, "sandy48", false);
+        setup(60, "sandy49", false);
         setup(61, "sandy50", false);
         setup(62, "sandy51", false);
         setup(63, "sandy52", false);
@@ -124,6 +123,7 @@ public class TileManager {
         setup(89, "watery74", true);
         setup(90, "watery75", true);
         setup(91, "watery76", true);
+        setup(92, "bridge00", false);
 
     }
     public void setup(int index, String imageName, boolean collision) {
@@ -132,7 +132,7 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/" + imageName + ".png")));
             tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
 
@@ -144,6 +144,7 @@ public class TileManager {
     public void loadMap(String filePath/* , int map */) {
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
+            assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;
@@ -153,7 +154,7 @@ public class TileManager {
                 String line = br.readLine();
 
                 while(col < gp.maxWorldCol) {
-                    String numbers[] = line.split(" ");
+                    String[] numbers= line.split(" ");
 
                     int num = Integer.parseInt(numbers[col]);
                     //kanang map is for transitioning of maps
@@ -168,7 +169,7 @@ public class TileManager {
             br.close();
         }
         catch(Exception e) {
-
+            e.printStackTrace();
         }
     }
 
