@@ -19,7 +19,7 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     public int haskey = 0;
-    public int hasClaw = 0;
+    public boolean hasClaw = false;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -173,7 +173,6 @@ public class Player extends Entity{
                         break;
                     case "claws":
                         gp.playSE(2);
-                        hasClaw++;
                         gp.obj/*[gp.currentMap]*/[i] = null;
                         gp.gameState=gp.dialogueState;
                         gp.ui.currentDialogue="You have become dangerous!";
@@ -190,7 +189,7 @@ public class Player extends Entity{
     }
     public void interactNPC(int i) {
         if(i != 999) {
-            if(hasClaw > 0){
+            if(hasClaw){
                 gp.npc/*[gp.currentMap]*/[0]=null;
             }
             if(gp.keyH.enterPressed) {

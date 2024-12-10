@@ -18,6 +18,7 @@ public class sound {
         soundURL[2] = getClass().getResource("/sound/powerup.wav");
         soundURL[3] = getClass().getResource("/sound/unlock.wav");
         soundURL[4] = getClass().getResource("/sound/fanfare.wav");
+        soundURL[5] = getClass().getResource("/sound/meow.wav");
 
         //this is for the sound effect for when to teleport to other map or dungeons
         //soundURL[4] = getClass().getResource("/sound/fanfare.wav");
@@ -35,7 +36,6 @@ public class sound {
         }
     }
     public void play(){
-        stop();
         clip.start();
     }
     public void loop(){
@@ -61,16 +61,16 @@ public class sound {
         }
         fc.setValue(volume);
     }
-//    public void playMusic(int i){
-//        this.setFile(i);
-//        this.play();
-//        this.loop();
-//    }
-//    public void stopMusic(){
-//        this.stop();
-//    }
-//    public void playSE(int i){
-//        this.setFile(i);
-//        this.play();
-//    }
+    public void playMusic(int i){
+        this.setFile(i);
+        this.play();
+        this.loop();
+    }
+    public void stopMusic(){
+        this.stop();
+    }
+    public void playSE(int i){
+        this.setFile(i);
+        this.play();
+    }
 }

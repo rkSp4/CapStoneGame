@@ -173,6 +173,8 @@ public class GamePanel extends JPanel implements Runnable {
                     npc/*[currentMap]*/[i].update();
                 }
             }
+            //ABILITIES
+
         }
         if(gameState == pauseState){
             //nothing

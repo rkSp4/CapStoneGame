@@ -10,8 +10,9 @@ public class KeyHandler implements KeyListener{
 
     GamePanel gp;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed, hasClaw, hasSprint;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed;
     boolean checkDrawTime = false;
+    public int look = 0; //0-Down 1-Right 2-Up 3-Left
 
     public KeyHandler(GamePanel gp){
         this.gp=gp;
@@ -97,18 +98,22 @@ public class KeyHandler implements KeyListener{
             }
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
                 upPressed = true;
+                look=2;
             }
 
             if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
                 downPressed = true;
+                look=0;
             }
 
             if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){
                 leftPressed = true;
+                look=3;
             }
 
             if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
                 rightPressed = true;
+                look=1;
             }
 
             if(code == KeyEvent.VK_ENTER) {
@@ -116,14 +121,34 @@ public class KeyHandler implements KeyListener{
             }
 
             //ABILITIES
+            //MEOW
+            if(code == KeyEvent.VK_SPACE){
+                gp.playSE(5);
+            }
             //CLAW
             if(code == KeyEvent.VK_C){
-                hasClaw = true;
+                gp.player.hasClaw = true;
+                gp.playSE(1);
+
+                switch(look){
+                    case 0:
+                            downPressed = true;
+                        break;
+                    case 1:
+                        rightPressed = true;
+                        break;
+                    case 2:
+                        upPressed = true;
+                        break;
+                    case 3:
+                        leftPressed = true;
+                        break;
+                }
             }
 
             //SPRINT
             if(code == KeyEvent.VK_V){
-                hasSprint = true;
+                //do sprint
             }
 
             if(code == KeyEvent.VK_ESCAPE){
