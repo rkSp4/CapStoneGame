@@ -407,7 +407,7 @@ public class UI {
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
         //SUB WINDOW
-        int frameX = gp.tileSize*4;
+        int frameX = gp.tileSize*6;
         int frameY = gp.tileSize;
         int frameWidth = gp.tileSize*8;
         int frameHeight = gp.tileSize*8;
@@ -501,6 +501,8 @@ public class UI {
         g2.drawRect(textX, textY, 120, 24);
         volumeWidth = 24*gp.se.volumeScale;
         g2.fillRect(textX, textY, volumeWidth, 24);
+
+        gp.config.saveConfig();
     }
 
     public void options_FullScreenNotif(int frameX, int frameY){
@@ -524,6 +526,7 @@ public class UI {
             }
             gp.keyH.enterPressed=false;
         }
+
     }
     public int getXtoCenter(String text){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();

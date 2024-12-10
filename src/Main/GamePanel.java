@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public EventHandler eHandler = new EventHandler(this);
+    Config config = new Config(this);
     Thread gameThread;
 
     //PLAYER & ENTITY PS:para nis mga NPC'S kaning gi comment out,rason kay para dili mu overlap ang npc sa lain map
@@ -86,7 +87,9 @@ public class GamePanel extends JPanel implements Runnable {
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         g2 = (Graphics2D)tempScreen.getGraphics();
 
-        setFullScreen();
+        if(fullScreenOn) {
+            setFullScreen();
+        }
     }
 
     public void setFullScreen(){

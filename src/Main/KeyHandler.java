@@ -126,9 +126,10 @@ public class KeyHandler implements KeyListener{
                 hasSprint = true;
             }
 
-            if(code == KeyEvent.VK_H){
+            if(code == KeyEvent.VK_ESCAPE){
                 gp.gameState = gp.optionState;
                 gp.ui.commandNum=0;
+
             }
         }
 
@@ -141,7 +142,7 @@ public class KeyHandler implements KeyListener{
             }
         }
         //PAUSE
-        if(code == KeyEvent.VK_P || code == KeyEvent.VK_ESCAPE) {
+        if(code == KeyEvent.VK_P){
             if (gp.gameState == gp.playState) {
                 gp.gameState = gp.pauseState;
                     gp.stopMusic();
@@ -206,9 +207,6 @@ public class KeyHandler implements KeyListener{
 
         //OPTIONS STATE
         if(gp.gameState == gp.optionState){
-            if(code == KeyEvent.VK_ESCAPE){
-                gp.gameState = gp.playState;
-            }
 
             if(code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
