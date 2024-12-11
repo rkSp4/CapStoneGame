@@ -18,7 +18,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[95];
+        tile = new Tile[110];
         mapTileNum = new int/*[gp.maxMap]*/[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
@@ -29,16 +29,18 @@ public class TileManager {
     public void getTileImage() {
 
         //PLACEHOLDER//
-        setup(0, "grass00", false);
-        setup(1, "grass00", false);
-        setup(2, "grass00", false);
-        setup(3, "grass00", false);
-        setup(4, "grass00", false);
-        setup(5, "grass00", false);
-        setup(6, "grass00", false);
-        setup(7, "grass00", false);
-        setup(8, "grass00", false);
+
+        setup(0, "cliff0", true);
+        setup(1, "cliff1", true);
+        setup(2, "cliff2", true);
+        setup(3, "cliff3", true);
+        setup(4, "cliff4", true);
+        setup(5, "cliff5", true);
+        setup(6, "cliff6", false);
+        setup(7, "cliff7", false);
+        setup(8, "cliff8", false);
         setup(9, "grass00", false);
+
         //PLACEHOLDER//
         setup(10, "grass00", false);
         setup(11, "grass01", false);
@@ -124,6 +126,11 @@ public class TileManager {
         setup(90, "watery75", true);
         setup(91, "watery76", true);
         setup(92, "bridge00", false);
+        setup(93, "cliff93", true);
+        setup(94, "cliff94", true);
+        setup(95, "cliff95", true);
+        setup(96, "cliff96", true);
+        setup(97, "cliff97", true);
 
     }
     public void setup(int index, String imageName, boolean collision) {
