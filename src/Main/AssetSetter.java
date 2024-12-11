@@ -1,7 +1,9 @@
 package Main;
 
-import Entity.NPC;
 import Entity.NPC_Boy;
+//import Entity.NPC_Red;
+//import monster.MON_GreenSlime;
+//import monster.MON_Rat;
 import Object.OBJ_KEY;
 import Object.OBJ_DOOR;
 import Object.OBJ_BOOTS;
@@ -13,10 +15,12 @@ import Object.OBJ_CLAWS;
 public class AssetSetter {
 
     GamePanel gp;
+
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
 
     }
+
     public void setObject() {
         //int mapNum = 0;
         //int i = 0;
@@ -56,11 +60,41 @@ public class AssetSetter {
 
     }
 
-    public void setNPC(){
+    public void setNPC() {
         //int mapNum = 0;
         //int i = 0;
         gp.npc/*[mapNum]*/[0] = new NPC_Boy(gp);
-        gp.npc/*[mapNum]*/[0].worldX = gp.tileSize*21;
-        gp.npc/*[mapNum]*/[0].worldY = gp.tileSize*21;
+        gp.npc/*[mapNum]*/[0].worldX = gp.tileSize * 21;
+        gp.npc/*[mapNum]*/[0].worldY = gp.tileSize * 21;
+
+        //  gp.npc/*[mapNum]*/[1] = new NPC_Red(gp);
+        //  gp.npc/*[mapNum]*/[1].worldX = gp.tileSize*25;
+        //  gp.npc/*[mapNum]*/[1].worldY = gp.tileSize*69;
     }
 }
+    /*
+    public void setMonster() {
+
+        gp.monster[0] = new MON_GreenSlime(gp);
+        gp.monster[0].worldX = gp.tileSize*23;
+        gp.monster[0].worldY = gp.tileSize*36;
+
+        gp.monster[1] = new MON_GreenSlime(gp);
+        gp.monster[1].worldX = gp.tileSize*23;
+        gp.monster[1].worldY = gp.tileSize*37;
+
+        gp.monster[2] = new MON_Rat(gp);
+        gp.monster[2].worldX = gp.tileSize*23;
+        gp.monster[2].worldY = gp.tileSize*61;
+
+        gp.monster[3] = new MON_Rat(gp);
+        gp.monster[3].worldX = gp.tileSize*25;
+        gp.monster[3].worldY = gp.tileSize*62;
+
+        gp.monster[4] = new MON_Rat(gp);
+        gp.monster[4].worldX = gp.tileSize*13;
+        gp.monster[4].worldY = gp.tileSize*85;
+
+    }
+}
+*/

@@ -19,13 +19,18 @@ public class Player extends Entity{
     //CLAW
     public boolean clawActive = false;
     public boolean clawCD;
-    public final int clawDuration = 5000;
-    public final int clawCoolDown = 10000;
+    public final int clawDuration = 1000;
+    public int clawCoolDown = 10000;
+    public int dashDistance = 3;
+    public int targetX, targetY;
+    public int dashSpeed = 24;
+    public boolean isDashing = false;
+
     //SPRINT
     public boolean sprintActive = false;
     public boolean sprintCD;
     public final int sprintDuration = 5000;
-    public final int sprintCoolDown = 10000;
+    public int sprintCoolDown = 10000;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -95,6 +100,9 @@ public class Player extends Entity{
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            //CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
             //CHECK EVENT
             gp.eHandler.checkEvent();
 
@@ -103,15 +111,16 @@ public class Player extends Entity{
 
             //IF COLLISION FALSE, PLAYER CAN MOVE
             if(!collisionOn) {
-                if(sprintActive){
-                    speed=8;
-                }else{
-                    speed=4;
+                if(!gp.devMode) {
+                    if (sprintActive) {
+                        speed = 8;
+                    } else {
+                        speed = 4;
+                    }
                 }
                 switch (direction) {
                     case "up":
                         worldY -= speed;
-                        //worldY = worldY - speed;
                         break;
                     case "down":
                         worldY += speed;
@@ -135,6 +144,26 @@ public class Player extends Entity{
                 spriteCounter = 0;
             }
         }
+
+        if(isDashing) {
+            if (worldX < targetX) {
+                worldX = Math.min(worldX + dashSpeed, targetX);
+            } else if (worldX > targetX) {
+                worldX = Math.max(worldX - dashSpeed, targetX);
+            }
+
+            if (worldY < targetY) {
+                worldY = Math.min(worldY + dashSpeed, targetY);
+            } else if (worldY > targetY) {
+                worldY = Math.max(worldY - dashSpeed, targetY);
+            }
+
+            // Check if the entity has reached the target
+            if (worldX == targetX && worldY == targetY) {
+                isDashing = false;
+            }
+        }
+
         //CLAW ABILITY
         if(keyH.claw) {
             if (clawCD) {
@@ -161,8 +190,36 @@ public class Player extends Entity{
     }
 
     public void Claw(){
+        if(isDashing){
+            return;
+        }
+        if(invincible == true) {
+            invincibleCounter++;
+            if(invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
         clawActive = true;
-        gp.ui.showMessage("You are now dangerous!");
+        isDashing = true;
+        gp.ui.showMessage("You attack!");
+        targetX = worldX;
+        targetY = worldY;
+
+        switch(direction){
+            case "up":
+                targetY -= dashDistance * gp.tileSize;
+                break;
+            case "down":
+                targetY += dashDistance * gp.tileSize;
+                break;
+            case "left":
+                targetX -= dashDistance * gp.tileSize;
+                break;
+            case "right":
+                targetX += dashDistance * gp.tileSize;
+                break;
+        }
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -176,7 +233,9 @@ public class Player extends Entity{
 
     public void clawCoolDown(){
         clawCD = true;
-
+        if(gp.devMode){
+            clawCoolDown = 0;
+        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -191,6 +250,7 @@ public class Player extends Entity{
         sprintActive = true;
         gp.ui.showMessage("You are now agile!");
 
+
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -203,7 +263,9 @@ public class Player extends Entity{
 
     public void sprintCoolDown(){
         sprintCD = true;
-
+        if(gp.devMode){
+            sprintCoolDown = 0;
+        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -264,6 +326,15 @@ public class Player extends Entity{
             }
         }
     }
+    public void contactMonster(int i) {
+        if(i != 999) {
+            if(invincible == false) {
+                life -= 1;
+                invincible = true;
+            }
+
+        }
+    }
 
     public void draw(Graphics a2) {
         //   a2.setColor(Color.red);
@@ -304,6 +375,19 @@ public class Player extends Entity{
                 }
                 break;
         }
-        a2.drawImage(image, screenX, screenY, null);
+        //PARA NI NIG MA DAMAGE ANG PLAYER, MU TRANSPARENT PERO DI SYA MU GANA KAY MURAG WAY setComposite sa
+        //Intellij(?)
+
+        //if(invincible == true) {
+        //    a2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+      //  }
+      //  a2.drawImage(image, screenX, screenY, null);
+        //restart alpha
+     //  a2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        //debug
+//        a2.setFont(new Font("Arial",Font.PLAIN, 26));
+//        a2.setColor(Color.white);
+//        a2.drawString("Invincible:"+invincibleCounter, 10, 400);
     }
 }
