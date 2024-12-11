@@ -37,13 +37,13 @@ public class KeyHandler implements KeyListener{
                 if (code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
                     gp.ui.commandNum--;
                     if (gp.ui.commandNum < 0) {
-                        gp.ui.commandNum = 2;
+                        gp.ui.commandNum = 1;
                     }
                 }
 
                 if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                     gp.ui.commandNum++;
-                    if (gp.ui.commandNum > 2) {
+                    if (gp.ui.commandNum > 1) {
                         gp.ui.commandNum = 0;
                     }
                 }
@@ -98,22 +98,18 @@ public class KeyHandler implements KeyListener{
             }
             if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP){
                 upPressed = true;
-                look=2;
             }
 
             if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN){
                 downPressed = true;
-                look=0;
             }
 
             if(code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT){
                 leftPressed = true;
-                look=3;
             }
 
             if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT){
                 rightPressed = true;
-                look=1;
             }
 
             if(code == KeyEvent.VK_ENTER) {

@@ -252,7 +252,9 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
-                    gp.gameState= gp.overState;
+                    if(!gp.player.clawActive) {
+                        gp.gameState = gp.overState;
+                    }
                 }
                 break;
             case "down":
@@ -260,7 +262,9 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
-                    gp.gameState= gp.overState;
+                    if(!gp.player.clawActive) {
+                        gp.gameState = gp.overState;
+                    }
                 }
                 break;
             case "right":
@@ -268,7 +272,9 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
-                    gp.gameState= gp.overState;
+                    if(!gp.player.clawActive) {
+                        gp.gameState = gp.overState;
+                    }
                 }
                 break;
             case "left":
@@ -276,7 +282,9 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
-                    gp.gameState= gp.overState;
+                    if(!gp.player.clawActive) {
+                        gp.gameState = gp.overState;
+                    }
                 }
                 break;
         }

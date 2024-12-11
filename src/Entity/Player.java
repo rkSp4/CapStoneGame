@@ -19,13 +19,18 @@ public class Player extends Entity{
     //CLAW
     public boolean clawActive = false;
     public boolean clawCD;
-    public final int clawDuration = 5000;
-    public final int clawCoolDown = 10000;
+    public final int clawDuration = 1000;
+    public int clawCoolDown = 10000;
+    public int dashDistance = 3;
+    public int targetX, targetY;
+    public int dashSpeed = 24;
+    public boolean isDashing = false;
+
     //SPRINT
     public boolean sprintActive = false;
     public boolean sprintCD;
     public final int sprintDuration = 5000;
-    public final int sprintCoolDown = 10000;
+    public int sprintCoolDown = 10000;
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -103,15 +108,16 @@ public class Player extends Entity{
 
             //IF COLLISION FALSE, PLAYER CAN MOVE
             if(!collisionOn) {
-                if(sprintActive){
-                    speed=8;
-                }else{
-                    speed=4;
+                if(!gp.devMode) {
+                    if (sprintActive) {
+                        speed = 8;
+                    } else {
+                        speed = 4;
+                    }
                 }
                 switch (direction) {
                     case "up":
                         worldY -= speed;
-                        //worldY = worldY - speed;
                         break;
                     case "down":
                         worldY += speed;
@@ -135,6 +141,26 @@ public class Player extends Entity{
                 spriteCounter = 0;
             }
         }
+
+        if(isDashing) {
+            if (worldX < targetX) {
+                worldX = Math.min(worldX + dashSpeed, targetX);
+            } else if (worldX > targetX) {
+                worldX = Math.max(worldX - dashSpeed, targetX);
+            }
+
+            if (worldY < targetY) {
+                worldY = Math.min(worldY + dashSpeed, targetY);
+            } else if (worldY > targetY) {
+                worldY = Math.max(worldY - dashSpeed, targetY);
+            }
+
+            // Check if the entity has reached the target
+            if (worldX == targetX && worldY == targetY) {
+                isDashing = false;
+            }
+        }
+
         //CLAW ABILITY
         if(keyH.claw) {
             if (clawCD) {
@@ -161,8 +187,29 @@ public class Player extends Entity{
     }
 
     public void Claw(){
+        if(isDashing){
+            return;
+        }
         clawActive = true;
-        gp.ui.showMessage("You are now dangerous!");
+        isDashing = true;
+        gp.ui.showMessage("You attack!");
+        targetX = worldX;
+        targetY = worldY;
+
+        switch(direction){
+            case "up":
+                targetY -= dashDistance * gp.tileSize;
+                break;
+            case "down":
+                targetY += dashDistance * gp.tileSize;
+                break;
+            case "left":
+                targetX -= dashDistance * gp.tileSize;
+                break;
+            case "right":
+                targetX += dashDistance * gp.tileSize;
+                break;
+        }
 
         new Timer().schedule(new TimerTask() {
             @Override
@@ -176,7 +223,9 @@ public class Player extends Entity{
 
     public void clawCoolDown(){
         clawCD = true;
-
+        if(gp.devMode){
+            clawCoolDown = 0;
+        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -191,6 +240,7 @@ public class Player extends Entity{
         sprintActive = true;
         gp.ui.showMessage("You are now agile!");
 
+
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -203,7 +253,9 @@ public class Player extends Entity{
 
     public void sprintCoolDown(){
         sprintCD = true;
-
+        if(gp.devMode){
+            sprintCoolDown = 0;
+        }
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
