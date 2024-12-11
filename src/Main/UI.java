@@ -92,6 +92,7 @@ public class UI {
             gp.stopMusic();
             //implement game over music
             drawOverScreen();
+            gp.keyH.enterPressed = false;
         }
 
         //DIALOGUE
@@ -311,12 +312,30 @@ public class UI {
             gp.keyH.enterPressed = false;
         }
 
+        //RESTART
+        text = "RESTART";
+        x = getXtoCenter(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
+        if(commandNum == 1){
+            g2.drawString(">", x-gp.tileSize, y);
+            if (gp.keyH.enterPressed) {
+                gp.player.setDefaultValues();
+                gp.setUpGame();
+                playTime = 0;
+                gp.gameState = gp.playState;
+                gp.playMusic(0);
+                commandNum=0;
+            }
+            gp.keyH.enterPressed = false;
+        }
+
         //TITLE SCREEN
         text = "TITLE SCREEN";
         x = getXtoCenter(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);
-        if(commandNum == 1){
+        if(commandNum == 2){
             g2.drawString(">", x-gp.tileSize, y);
             if (gp.keyH.enterPressed) {
                 gp.gameState = gp.titleState;
@@ -325,18 +344,6 @@ public class UI {
                 commandNum=0;
             }
             gp.keyH.enterPressed = false;
-        }
-
-        //QUIT GAME
-        text = "EXIT GAME";
-        x = getXtoCenter(text);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if(commandNum == 2){
-            g2.drawString(">", x-gp.tileSize, y);
-            if (gp.keyH.enterPressed) {
-                System.exit(0);
-            }
         }
     }
 
@@ -373,6 +380,8 @@ public class UI {
         if(commandNum==0){
             g2.drawString(">", x-gp.tileSize, y);
             if (gp.keyH.enterPressed) {
+                gp.player.setDefaultValues();
+                playTime = 0;
                 gp.gameState = gp.playState;
                 gp.playMusic(0);
                 commandNum=0;

@@ -16,6 +16,7 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     public int haskey = 0;
+    public boolean hasKilled = false;
     //CLAW
     public boolean clawActive = false;
     public boolean clawCD;
@@ -206,6 +207,11 @@ public class Player extends Entity{
             }
             keyH.sprint = false;
         }
+
+        //LIFE
+        if(life<=0){
+            gp.gameState = gp.overState;
+        }
     }
 
     public void Claw(){
@@ -254,6 +260,9 @@ public class Player extends Entity{
         clawCD = true;
         if(gp.devMode){
             clawCoolDown = 0;
+        }else if(hasKilled){
+            clawCoolDown = 5000;
+            hasKilled = false;
         }else{
             clawCoolDown = 10000;
         }
@@ -342,6 +351,7 @@ public class Player extends Entity{
         if(i != 999) {
             if(clawActive){
                 gp.npc/*[gp.currentMap]*/[0]=null;
+                hasKilled = true;
             }
             if(gp.keyH.enterPressed) {
                 gp.gameState = gp.dialogueState;

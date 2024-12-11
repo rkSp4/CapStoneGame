@@ -181,7 +181,10 @@ public class    CollisionChecker {
                 {
                     entity.collisionOn = true;
                     if(!gp.player.clawActive) {
-                        gp.gameState = gp.overState;
+                        if(!gp.player.invincible) {
+                            gp.player.life -= 1;
+
+                        }
                     }
                 }
                 break;
@@ -191,7 +194,10 @@ public class    CollisionChecker {
                 {
                     entity.collisionOn = true;
                     if(!gp.player.clawActive) {
-                        gp.gameState = gp.overState;
+                        if(!gp.player.invincible) {
+                            gp.player.life -= 1;
+
+                        }
                     }
                 }
                 break;
@@ -200,8 +206,8 @@ public class    CollisionChecker {
                 if(entity.solidArea.intersects(gp.player.solidArea))
                 {
                     entity.collisionOn = true;
-                    if(!gp.player.clawActive) {
-                        gp.gameState = gp.overState;
+                    if(!gp.player.invincible) {
+                        gp.player.life -= 1;
                     }
                 }
                 break;
@@ -211,7 +217,9 @@ public class    CollisionChecker {
                 {
                     entity.collisionOn = true;
                     if(!gp.player.clawActive) {
-                        gp.gameState = gp.overState;
+                        if(!gp.player.invincible) {
+                            gp.player.life -= 1;
+                        }
                     }
                 }
                 break;
