@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
     //SCREEN SETTINGS
+    BufferedImage keyI;
+
     final int originalTitleSize = 16;
     final int scale = 3;
     public final int tileSize = originalTitleSize * scale;

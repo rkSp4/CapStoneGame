@@ -10,7 +10,7 @@ public class KeyHandler implements KeyListener{
 
     GamePanel gp;
 
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed, claw, sprint;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, ctrlPressed, claw, sprint, choice;
     boolean checkDrawTime = false;
     public int look = 0; //0-Down 1-Right 2-Up 3-Left
 
@@ -53,6 +53,9 @@ public class KeyHandler implements KeyListener{
                 }
             }
             else if(gp.ui.titleScreenState == 1) {
+
+
+
                 if (code == KeyEvent.VK_A || code == KeyEvent.VK_LEFT) {
                     gp.ui.commandNum--;
                     if (gp.ui.commandNum < 1) {
@@ -78,6 +81,17 @@ public class KeyHandler implements KeyListener{
                 if (code == KeyEvent.VK_ENTER) {
                     enterPressed = true;
                 }
+            }
+            if(gp.ui.commandNum == 0 && enterPressed == true)
+            {
+                choice = true;
+                gp.player.getPlayerImage(choice);
+                enterPressed = false;
+            } else if (gp.ui.commandNum == 1 && enterPressed == true) {
+                choice = false;
+                gp.player.getPlayerImage(choice);
+                enterPressed = false;
+
             }
         }
         //PLAY STATE

@@ -49,7 +49,7 @@ public class Player extends Entity{
         solidArea.height = 16;
 
         setDefaultValues();
-        getPlayerImage();
+        getPlayerImage(gp.keyH.choice);
     }
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
@@ -62,7 +62,29 @@ public class Player extends Entity{
          life = maxLife;
     }
 
-    public void getPlayerImage() {
+    public void getPlayerImage(boolean choice) {
+        tab = setup("/player/tab");
+        white = setup("/player/white");
+
+        if(choice){
+            getCat1();
+        }else{
+            getCat2();
+        }
+    }
+
+    public void getCat1(){
+        up1 = setup("/player/cat1_up_1");
+        up2 = setup("/player/cat1_up_2");
+        down1 = setup("/player/cat1_down_1");
+        down2 = setup("/player/cat1_down_2");
+        left1 = setup("/player/cat1_left_1");
+        left2 = setup("/player/cat1_left_2");
+        right1 = setup("/player/cat1_right_1");
+        right2 = setup("/player/cat1_right_2");
+    }
+
+    public void getCat2(){
         up1 = setup("/player/cat_up_1");
         up2 = setup("/player/cat_up_2");
         down1 = setup("/player/cat_down_1");
@@ -71,10 +93,7 @@ public class Player extends Entity{
         left2 = setup("/player/cat_left_2");
         right1 = setup("/player/cat_right_1");
         right2 = setup("/player/cat_right_2");
-        tab = setup("/player/tab");
-        white = setup("/player/white");
     }
-
 
     public void update() {
         if(keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
