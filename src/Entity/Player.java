@@ -19,9 +19,9 @@ public class Player extends Entity{
     //CLAW
     public boolean clawActive = false;
     public boolean clawCD;
-    public final int clawDuration = 1000;
+    public final int clawDuration = 3000;
     public int clawCoolDown = 10000;
-    public int dashDistance = 3;
+    public int dashDistance = 1;
     public int targetX, targetY;
     public int dashSpeed = 24;
     public boolean isDashing = false;
@@ -212,7 +212,7 @@ public class Player extends Entity{
         if(isDashing){
             return;
         }
-        if(invincible == true) {
+        if(invincible) {
             invincibleCounter++;
             if(invincibleCounter > 60) {
                 invincible = false;
@@ -347,7 +347,7 @@ public class Player extends Entity{
     }
     public void contactMonster(int i) {
         if(i != 999) {
-            if(invincible == false) {
+            if(!invincible) {
                 life -= 1;
                 invincible = true;
             }

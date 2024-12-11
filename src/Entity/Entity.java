@@ -50,8 +50,8 @@ public abstract class Entity {
         gp.cChecker.checkEntity(this, gp.monster);
         boolean contactPlayer = gp.cChecker.checkPlayer(this);
 
-        if(this.type == 2 && contactPlayer == true) {
-            if(gp.player.invincible == false) {
+        if(this.type == 2 && contactPlayer) {
+            if(!gp.player.invincible) {
                 gp.player.life -= 1;
                 gp.player.invincible = true;
             }

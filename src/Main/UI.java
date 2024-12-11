@@ -180,7 +180,7 @@ public class UI {
                 text = "LOAD GAME";
             }
             x = getXtoCenter(text);
-            y += gp.tileSize*4;
+            y += gp.tileSize*5;
             g2.drawString(text, x, y);
             if(commandNum==0){
                 g2.drawString(">", x-gp.tileSize, y);
@@ -193,7 +193,7 @@ public class UI {
 
             text = "QUIT";
             x = getXtoCenter(text);
-            y += gp.tileSize*2;
+            y += gp.tileSize;
             g2.drawString(text, x, y);
             if(commandNum==1){
                 g2.drawString(">", x-gp.tileSize, y);
