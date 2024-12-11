@@ -100,6 +100,9 @@ public class Player extends Entity{
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
 
+            //CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            contactMonster(monsterIndex);
             //CHECK EVENT
             gp.eHandler.checkEvent();
 
@@ -189,6 +192,13 @@ public class Player extends Entity{
     public void Claw(){
         if(isDashing){
             return;
+        }
+        if(invincible == true) {
+            invincibleCounter++;
+            if(invincibleCounter > 60) {
+                invincible = false;
+                invincibleCounter = 0;
+            }
         }
         clawActive = true;
         isDashing = true;
@@ -316,6 +326,15 @@ public class Player extends Entity{
             }
         }
     }
+    public void contactMonster(int i) {
+        if(i != 999) {
+            if(invincible == false) {
+                life -= 1;
+                invincible = true;
+            }
+
+        }
+    }
 
     public void draw(Graphics a2) {
         //   a2.setColor(Color.red);
@@ -356,6 +375,19 @@ public class Player extends Entity{
                 }
                 break;
         }
-        a2.drawImage(image, screenX, screenY, null);
+        //PARA NI NIG MA DAMAGE ANG PLAYER, MU TRANSPARENT PERO DI SYA MU GANA KAY MURAG WAY setComposite sa
+        //Intellij(?)
+
+        //if(invincible == true) {
+        //    a2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.3f));
+      //  }
+      //  a2.drawImage(image, screenX, screenY, null);
+        //restart alpha
+     //  a2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        //debug
+//        a2.setFont(new Font("Arial",Font.PLAIN, 26));
+//        a2.setColor(Color.white);
+//        a2.drawString("Invincible:"+invincibleCounter, 10, 400);
     }
 }

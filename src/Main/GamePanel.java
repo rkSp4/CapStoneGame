@@ -57,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public Entity[]/*[]*/ obj = new Entity[10];
     public Entity[]/*[]*/ npc = new Entity/*[maxMap]*/[10];
+    public Entity monster[] = new Entity[20];
     ArrayList<Entity> entityList = new ArrayList<>();
     public boolean devMode = false;
 
@@ -86,6 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
         playMusic(0);
         aSetter.setObject();
         aSetter.setNPC();
+        aSetter.setMonster();
         gameState = titleState;
 
         tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
@@ -141,6 +143,11 @@ public class GamePanel extends JPanel implements Runnable {
                 System.out.println("FPS:" + drawCount);
                 drawCount = 0;
                 timer = 0;
+            }
+            for(int i = 0; i < monster.length; i++) {
+                if(monster[i] != null){
+                    monster[i].update();
+                }
             }
         }
 
@@ -210,6 +217,11 @@ public class GamePanel extends JPanel implements Runnable {
             for(int i=0;i< obj.length;i++) {
                 if(obj[i] != null) {
                     entityList.add(obj[i]);
+                }
+            }
+            for(int i=0;i< monster.length;i++) {
+                if(monster[i] != null) {
+                    entityList.add(monster[i]);
                 }
             }
             //SORT
