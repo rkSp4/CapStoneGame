@@ -39,7 +39,7 @@ public class TileManager {
         setup(6, "cliff6", false);
         setup(7, "cliff7", false);
         setup(8, "cliff8", false);
-        setup(9, "grass00", false);
+        setup(9, "watery9", false);
 
         //PLACEHOLDER//
         setup(10, "grass00", false);
