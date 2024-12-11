@@ -14,6 +14,7 @@ public class OBJ_TIME extends Entity {
         super(gp);
         name = "time";
         image = setup("/objects/time");
+        down1 = setup("/objects/time");
     }
 }
 

@@ -12,6 +12,7 @@ public class OBJ_BOOTS extends Entity {
         super(gp);
         name = "boots";
         image = setup("/objects/boots");
+        down1 = setup("/objects/boots");
 
     }
 }

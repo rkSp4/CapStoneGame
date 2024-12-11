@@ -12,5 +12,6 @@ public class OBJ_CHEST extends Entity {
         super(gp);
         name = "Chest";
         image = setup("/objects/chest");
+        down1 = setup("/objects/chest");
     }
 }
