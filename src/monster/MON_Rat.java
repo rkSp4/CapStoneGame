@@ -1,4 +1,4 @@
-package monster;
+/*package monster;
 
 import Entity.Entity;
 import Main.GamePanel;
@@ -55,3 +55,5 @@ public class MON_Rat extends Entity {
         }
     }
 }
+
+ */

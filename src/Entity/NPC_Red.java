@@ -1,4 +1,4 @@
-package Entity;
+/*package Entity;
 
 import Main.GamePanel;
 import java.util.Random;
@@ -62,4 +62,4 @@ public class NPC_Red extends Entity{
         super.speak();
     }
 }
-
+*/
