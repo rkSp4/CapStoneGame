@@ -254,6 +254,8 @@ public class Player extends Entity{
         clawCD = true;
         if(gp.devMode){
             clawCoolDown = 0;
+        }else{
+            clawCoolDown = 10000;
         }
         new Timer().schedule(new TimerTask() {
             @Override
@@ -284,6 +286,8 @@ public class Player extends Entity{
         sprintCD = true;
         if(gp.devMode){
             sprintCoolDown = 0;
+        }else{
+            sprintCoolDown = 10000;
         }
         new Timer().schedule(new TimerTask() {
             @Override

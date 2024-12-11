@@ -11,7 +11,7 @@ public class OBJ_BOOTS extends Entity {
     public OBJ_BOOTS(GamePanel gp) {
         super(gp);
         name = "boots";
-        down1 = setup("/objects/boots");
+        image = setup("/objects/boots");
 
     }
 }

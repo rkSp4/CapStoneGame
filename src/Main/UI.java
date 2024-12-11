@@ -75,12 +75,14 @@ public class UI {
             DecimalFormat dFormat = new DecimalFormat("#0.00");
 //            g2.setColor(Color.black);
 //            g2.fillRoundRect(gp.tileSize * 11, 18, gp.tileSize * 4, 63,35, 35);
-            drawSubWindow(gp.tileSize*11, 18, gp.tileSize*4, 63);
+            drawSubWindow(gp.tileSize*15, 18, gp.tileSize*4, 63);
             g2.setColor(Color.white);
-            g2.drawString(":"+dFormat.format(playTime), gp.tileSize*12, 65);
-            g2.drawImage(timeI, gp.tileSize*11 + 7, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+            g2.drawString(":"+dFormat.format(playTime), gp.tileSize*16, 65);
+            g2.drawImage(timeI, gp.tileSize*15 + 7, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
 
             drawPlayerLife();
+            drawClaw();
+            drawSprint();
         }//PAUSE STATE
         if(gp.gameState == gp.pauseState){
             drawPauseScreen();
@@ -95,6 +97,8 @@ public class UI {
         //DIALOGUE
         if(gp.gameState == gp.dialogueState) {
             drawPlayerLife();
+            drawClaw();
+            drawSprint();
             drawDialogueScreen();
         }
 
@@ -146,6 +150,27 @@ public class UI {
             }
             i++;
             x += gp.tileSize;
+        }
+    }
+
+    //ABILITIES
+    public void drawClaw(){
+        g2.setColor(Color.black);
+        g2.drawRect(gp.tileSize/2, gp.tileSize/2+ 120, gp.tileSize, gp.tileSize);
+        g2.fillRect(gp.tileSize/2, gp.tileSize/2+ 120, gp.tileSize, gp.tileSize);
+        g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2 + 120, gp.tileSize, gp.tileSize, null);
+        if(gp.player.clawCD){
+            drawAbilityWindow(gp.tileSize/2-2, gp.tileSize/2+ 118, gp.tileSize+5, gp.tileSize+5);
+        }
+
+    }
+    public void drawSprint(){
+        g2.setColor(Color.black);
+        g2.drawRect(gp.tileSize*2-10, gp.tileSize/2+ 120, gp.tileSize, gp.tileSize);
+        g2.fillRect(gp.tileSize*2-10, gp.tileSize/2+ 120, gp.tileSize, gp.tileSize);
+        g2.drawImage(keyI, gp.tileSize*2-10, gp.tileSize/2 + 120, gp.tileSize, gp.tileSize, null);
+        if(gp.player.sprintCD){
+            drawAbilityWindow(gp.tileSize*2-12, gp.tileSize/2+ 118, gp.tileSize+5, gp.tileSize+5);
         }
     }
 
@@ -396,6 +421,12 @@ public class UI {
         g2.setColor(c);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x+5, y+5, -10, -10, 25, 25);
+    }
+
+    public void drawAbilityWindow(int x, int y, int width, int height) {
+        Color c = new Color(54, 46, 46, 238);
+        g2.setColor(c);
+        g2.fillRect(x, y, width, height);
     }
 
     public void drawOptionsScreen(){
