@@ -188,32 +188,34 @@ public class UI {
             g2.drawImage(gp.player.title, 0, 0, 1000, 600, null);
             //NAME
             g2.setFont(g2.getFont().deriveFont(Font.BOLD,69F));
-            String text = "PawPaw";
+
+            String text = "PAWPAW";
             int x = getXtoCenter(text);
-            int y = gp.tileSize*3;
+            int y = gp.tileSize*5;
 
             //SHADOW
             g2.setColor(Color.black);
             g2.drawString(text, x+5, y+5);
             //MAIN COLOR
-            g2.setColor(Color.white);
+            g2.setColor(Color.magenta);
+            g2.setFont(new Font("ROG Fonts", Font.PLAIN, 69));
             g2.drawString(text, x, y);
 
             //CAT IMAGE
-            x = gp.screenWidth/2 - gp.tileSize*2/2;
-            y += gp.tileSize*2;
-            g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
+//            x = gp.screenWidth/2 - gp.tileSize*2/2;
+//            y += gp.tileSize*2;
+//            g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
 
             //MENU
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
-
+            g2.setColor(Color.white);
             if(newGame) {
                 text = "NEW GAME";
             }else{
                 text = "LOAD GAME";
             }
             x = getXtoCenter(text);
-            y += gp.tileSize*4;
+            y += gp.tileSize*5;
             g2.drawString(text, x, y);
             if(commandNum==0){
                 g2.drawString(">", x-gp.tileSize, y);
@@ -226,7 +228,7 @@ public class UI {
 
             text = "QUIT";
             x = getXtoCenter(text);
-            y += gp.tileSize*2;
+            y += gp.tileSize;
             g2.drawString(text, x, y);
             if(commandNum==1){
                 g2.drawString(">", x-gp.tileSize, y);
@@ -247,7 +249,7 @@ public class UI {
             int y = gp.tileSize*3;
             g2.drawString(text, x, y);
 
-            text = "CAT1";
+            text = "Tabby";
             x = gp.tileSize*5;
             y = gp.tileSize*9;
             g2.drawString(text, x, y);
@@ -262,7 +264,7 @@ public class UI {
                 gp.keyH.enterPressed = false;
             }
 
-            text = "CAT2";
+            text = "Fancy";
             x += gp.tileSize*8;
             //y = gp.tileSize*9;
             g2.drawImage(gp.player.white, x - gp.tileSize, y-gp.tileSize*5, gp.tileSize*4, gp.tileSize*4, null);
