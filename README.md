@@ -1,35 +1,48 @@
-Paws and Shadows
+# PAWPAW Overview
+PAWPAW is a delightful adventure game where players control a curious cat exploring a mysterious island. Your mission is to collect various items scattered across the island, solve puzzles, and uncover the secrets of this enchanting land. Traverse this mysterious land filled with monsters and treasures and have a purr-fect adventure. 
 
-//NEEDS WORK (just AI)
-
-Description:
-In Paws and Shadows, you take on the role of a clever and agile stray cat navigating the bustling streets and rooftops of a lively urban neighborhood. Your mission? Collect shiny treasures, food scraps, and other valuable trinkets scattered around the city while avoiding the watchful eyes of patrolling humans who’d rather chase you off than let you scavenge in peace. 
-
-Gameplay:
-
-Exploration: Navigate through various urban environments, including parks, markets, alleys, and rooftops, to find and collect items.
-
-Stealth Mechanics: Hide behind objects, sneak past people, and time your movements carefully to avoid detection. Humans will react differently based on their roles (e.g., shopkeepers will chase, children may try to play).
-
-Item Collection: Gather specific items to complete levels or unlock bonus challenges. Items range from sparkling jewelry to juicy fish bones.
-
-Objective:
-Complete each level by collecting a set number of items while avoiding capture. Bonus challenges include collecting rare items or finishing a level without being spotted.
-
-Art Style:
-Vibrant, hand-drawn 2D graphics with a playful, cartoonish vibe. Dynamic day/night cycles bring the city to life, with glowing streetlights and bustling daytime activities.
-
-Sound Design:
-A mix of upbeat tunes and stealthy, suspenseful music that intensifies when humans are nearby. Sound effects include realistic meows, rustling trash, and human footsteps.
-
-Target Audience:
-Casual gamers and animal lovers of all ages looking for a fun, lighthearted challenge.
-
-//NEEDS WORK (just AI)
+---
 
 ## Features
+- **Interactive Gameplay:** Find and interact with hidden items, solve puzzles, and unlock new areas.
+- **Charming Storyline:** Unravel the mystery of the island and discover why your feline friend is there.
+- **Adorable Graphics:** Enjoy vibrant and heartwarming visuals.
+- **Relaxing Soundtrack:** Immerse yourself in soothing music that complements your adventure.
 
+---
 
-## Authors
+## How to Play
+1. **Movement:** Use the arrow keys or WASD to move your cat around the island.
+2. **Claw:** Press `C` to sharpen your claws and protect yourself from danger.
+3. **Sprint:** Press `V` to increase your movement speed.
+4. **Map:** Press `M` to view the map. 
 
+---
 
+## Credits
+- **Game Design:** [Lenon Lee Natividad]
+- **Programming:** [Keint Warren Poliquit]
+- **Art & Animation:** [Wilfred John Carin]
+- **Sound Design:** [Lance Lemmor Chan]
+
+---
+
+## FORDA CAPSTONE THINGS
+- **Classes and Objects [25%] -** ✔️ 
+- **Class Diagram [15%] -** ✔️
+- **Four OOP Principles [30%] -** ✔️
+- **Exception Handling [10%] -** ✔️
+- **File Handling [5% + bonus 5%] -** ✔️
+- **Graphical User Interface [15%] -** ✔️
+- **Design Pattern [bonus 5%] :**
+  
+    **Factory -** Many of our object classes like `OBJ_BOOTS`, `OBJ_CHEST`, etc., use a common metho for creating object instances. The method `setup()` acts as a factory for                         creating and configuring objects.
+  
+    **Composite -** The `Map` class holds a collection of `Tile` objects in a grid. Each tile is independent, but they work together to complete the world map.
+  
+    **Prototype -** The class `Entity` uses the Prototype pattern where an instance is cloned and modified based on specific needs (such as different types of objects like                             `OBJ_BOOTS`, `OBJ_KEY`, etc.).
+
+---
+
+## Other Features
+- **Developer Mode:** [Press `CAPS LOCK` to enable developer mode. It includes disabling collisions, increased movement speed, debug mode, and many more~]
