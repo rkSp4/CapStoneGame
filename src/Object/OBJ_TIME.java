@@ -13,6 +13,7 @@ public class OBJ_TIME extends Entity {
     public OBJ_TIME(GamePanel gp) {
         super(gp);
         name = "time";
+        image = setup("/objects/time");
         down1 = setup("/objects/time");
     }
 }

@@ -7,13 +7,13 @@ import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import java.io.IOException;
 
-public class OBJ_KEY extends Entity {
+public class OBJ_PAW extends Entity {
 
-    public OBJ_KEY(GamePanel gp) {
+    public OBJ_PAW(GamePanel gp) {
         super(gp);
-        name = "Key";
-        down1 = setup("/objects/key");
-        image = setup("/objects/key");
+        name = "paw";
+        down1 = setup("/objects/paw");
+        image = setup("/objects/paw");
 
     }
 

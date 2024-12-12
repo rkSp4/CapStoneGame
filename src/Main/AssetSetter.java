@@ -8,8 +8,6 @@ import Object.OBJ_KEY;
 import Object.OBJ_DOOR;
 import Object.OBJ_BOOTS;
 import Object.OBJ_CHEST;
-import Object.OBJ_SHADOW;
-import Object.OBJ_CLAWS;
 
 
 public class AssetSetter {
