@@ -364,6 +364,10 @@ public class Player extends Entity{
     }
     public void contactMonster(int i) {
         if(i != 999) {
+            if(clawActive){
+                gp.monster/*[gp.currentMap]*/[i]=null;
+                hasKilled = true;
+            }
             if(!invincible) {
                 life -= 1;
                 invincible = true;
