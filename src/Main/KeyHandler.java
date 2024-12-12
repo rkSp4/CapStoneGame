@@ -138,7 +138,7 @@ public class KeyHandler implements KeyListener{
             //CLAW
             if(code == KeyEvent.VK_C){
                 claw = true;
-                gp.playSE(1);
+                gp.playSE(6);
             }
 
             //SPRINT
