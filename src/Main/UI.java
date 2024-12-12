@@ -8,6 +8,7 @@ import Object.OBJ_KEY;
 import Object.OBJ_TIME;
 import Object.OBJ_HEART;
 import Object.OBJ_PAW;
+import Object.OBJ_CLAW;
 
 public class UI {
 
@@ -17,6 +18,7 @@ public class UI {
     BufferedImage keyI;
     BufferedImage timeI;
     BufferedImage pawI;
+    BufferedImage clawI;
     int messagectr = 0;
 
     Font arial_40, arial_80B;
@@ -41,9 +43,12 @@ public class UI {
         OBJ_KEY key = new OBJ_KEY(gp);
         OBJ_TIME time = new OBJ_TIME(gp);
         OBJ_PAW paw = new OBJ_PAW(gp);
+        OBJ_CLAW claw = new OBJ_CLAW(gp);
         timeI = time.image;
         keyI = key.image;
         pawI = paw.image;
+        clawI = claw.image;
+
 
         //CREATE HUB OBJECT
         Entity heart = new OBJ_HEART(gp);
@@ -78,10 +83,10 @@ public class UI {
             DecimalFormat dFormat = new DecimalFormat("#0.00");
 //            g2.setColor(Color.black);
 //            g2.fillRoundRect(gp.tileSize * 11, 18, gp.tileSize * 4, 63,35, 35);
-            drawSubWindow(gp.tileSize*15, 18, gp.tileSize*4, 63);
+            drawSubWindow(gp.tileSize*11, 18, gp.tileSize*4, 63);
             g2.setColor(Color.white);
-            g2.drawString(":"+dFormat.format(playTime), gp.tileSize*16, 65);
-            g2.drawImage(timeI, gp.tileSize*15 + 7, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
+            g2.drawString(":"+dFormat.format(playTime), gp.tileSize*12, 65);
+            g2.drawImage(timeI, gp.tileSize*11 + 7, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
 
             drawPlayerLife();
             drawClaw();
@@ -95,14 +100,11 @@ public class UI {
             gp.stopMusic();
             //implement game over music
             drawOverScreen();
-            gp.keyH.enterPressed = false;
         }
 
         //DIALOGUE
         if(gp.gameState == gp.dialogueState) {
             drawPlayerLife();
-            drawClaw();
-            drawSprint();
             drawDialogueScreen();
         }
 
@@ -163,7 +165,7 @@ public class UI {
         g2.drawRect(gp.tileSize/2, gp.tileSize/2+ 120, gp.tileSize+5, gp.tileSize+5);
         g2.setColor(Color.white);
         g2.fillRect(gp.tileSize/2, gp.tileSize/2 + 120, gp.tileSize+6, gp.tileSize+6);
-        g2.drawImage(keyI, gp.tileSize/2, gp.tileSize/2 + 120, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(clawI, gp.tileSize/2, gp.tileSize/2 + 120, gp.tileSize+6, gp.tileSize+6, null);
         if(gp.player.clawCD){
             drawAbilityWindow(gp.tileSize/2, gp.tileSize/2 + 120, gp.tileSize+6, gp.tileSize+6);
         }
@@ -174,7 +176,7 @@ public class UI {
         g2.drawRect(gp.tileSize*2-10, gp.tileSize/2 + 120, gp.tileSize+5, gp.tileSize+5);
         g2.setColor(Color.white);
         g2.fillRect(gp.tileSize*2-10, gp.tileSize/2 + 120, gp.tileSize+6, gp.tileSize+6);
-        g2.drawImage(pawI, gp.tileSize*2-7, gp.tileSize/2 + 123, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(pawI, gp.tileSize*2-10, gp.tileSize/2 + 120, gp.tileSize + 6, gp.tileSize + 6, null);
         if(gp.player.sprintCD){
             drawAbilityWindow(gp.tileSize*2-10, gp.tileSize/2 + 120, gp.tileSize+6, gp.tileSize+6);
         }
@@ -183,10 +185,10 @@ public class UI {
     public void drawTitleScreen(){
         if(titleScreenState == 0){
             g2.setColor(new Color(70, 120 , 80));
-            g2.fillRect(0, 0, gp.ScreenWidth2, gp.ScreenHeight2);
+            g2.drawImage(gp.player.title, 0, 0, 1000, 600, null);
             //NAME
-            g2.setFont(new Font("ROG Fonts", Font.BOLD, 69)); //ROG Fonts,
-            String text = "Cat Collection";
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD,69F));
+            String text = "PawPaw";
             int x = getXtoCenter(text);
             int y = gp.tileSize*3;
 
@@ -198,12 +200,12 @@ public class UI {
             g2.drawString(text, x, y);
 
             //CAT IMAGE
-            x = gp.screenWidth/2 - gp.tileSize*2;
-            y += gp.tileSize;
-            g2.drawImage(gp.player.down1, x, y, gp.tileSize*4, gp.tileSize*4, null);
+            x = gp.screenWidth/2 - gp.tileSize*2/2;
+            y += gp.tileSize*2;
+            g2.drawImage(gp.player.down1, x, y, gp.tileSize*2, gp.tileSize*2, null);
 
             //MENU
-            g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 48F));
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
 
             if(newGame) {
                 text = "NEW GAME";
@@ -211,7 +213,7 @@ public class UI {
                 text = "LOAD GAME";
             }
             x = getXtoCenter(text);
-            y += gp.tileSize*6;
+            y += gp.tileSize*4;
             g2.drawString(text, x, y);
             if(commandNum==0){
                 g2.drawString(">", x-gp.tileSize, y);
@@ -224,7 +226,7 @@ public class UI {
 
             text = "QUIT";
             x = getXtoCenter(text);
-            y += gp.tileSize;
+            y += gp.tileSize*2;
             g2.drawString(text, x, y);
             if(commandNum==1){
                 g2.drawString(">", x-gp.tileSize, y);
@@ -235,7 +237,7 @@ public class UI {
         }
         else if(titleScreenState == 1){
             g2.setColor(new Color(70, 120 , 80));
-            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+            g2.fillRect(0, 0, gp.ScreenWidth2, gp.ScreenHeight2);
 
             //CAT SELECTION
             g2.setColor(Color.WHITE);
@@ -285,7 +287,6 @@ public class UI {
                     gp.ui.titleScreenState = 0;
                 }
                 gp.keyH.enterPressed = false;
-
             }
         }
 

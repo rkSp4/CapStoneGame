@@ -133,6 +133,7 @@ public class TileManager {
         setup(97, "cliff97", true);
 
     }
+
     public void setup(int index, String imageName, boolean collision) {
 
         UtilityTool uTool = new UtilityTool();

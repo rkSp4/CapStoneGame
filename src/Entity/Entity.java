@@ -14,9 +14,8 @@ public abstract class Entity {
     public int worldX, worldY;
     public int speed;
 
-    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, tab, white;
+    public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2, tab, white, Icon;
     public String direction = "down";
-
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle(0, 0, 48, 48);
