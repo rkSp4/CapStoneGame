@@ -214,14 +214,15 @@ public class GamePanel extends JPanel implements Runnable {
             player.draw(g2);
             ui.draw(g2);
         }
-//        if(keyH.checkDrawTime == true)
-//        {
-//            long drawEnd = System.nanoTime();
-//            long passed = drawEnd - drawStart;
-//            a2.setColor(Color.red);
-//            a2.drawString("Draw Time:" + passed, 10, 400);
-//            System.out.println("Draw time: " + passed);
-//        }
+        long drawStart = 0;
+        if(keyH.checkDrawTime)
+        {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.red);
+            g2.drawString("Draw Time:" + passed, 10, 400);
+            System.out.println("Draw time: " + passed);
+        }
         if (keyH.checkDrawTime) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
