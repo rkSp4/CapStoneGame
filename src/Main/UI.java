@@ -189,7 +189,7 @@ public class UI {
             g2.setColor(new Color(70, 120 , 80));
             g2.fillRect(0, 0, gp.ScreenWidth2, gp.ScreenHeight2);
             //NAME
-            g2.setFont(new Font("ROG Fonts", Font.BOLD, 69)); //ROG Fonts,
+            g2.setFont(new Font("Arial", Font.BOLD, 69)); //ROG Fonts,
             String text = "Cat Collection";
             int x = getXtoCenter(text);
             int y = gp.tileSize*3;
