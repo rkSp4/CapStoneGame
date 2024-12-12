@@ -65,7 +65,7 @@ public class Map {
 
                 g2.setColor(Color.RED);
 //                g2.fillOval(centerX + playerMapX - 5, centerY + playerMapY - 5, 10, 10);
-                g2.drawImage(gp.player.Icon, centerX + playerMapX - 5, centerY + playerMapY - 5, 50, 50, null);
+                g2.drawImage(gp.player.Icon, centerX + playerMapX - 5, centerY + playerMapY - 5, 25, 25, null);
             }
         }
     }
