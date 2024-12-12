@@ -63,16 +63,17 @@ public class Player extends Entity{
          life = maxLife;
     }
 
-    public void getPlayerImage(boolean choice) {
-        tab = setup("/player/tab");
-        white = setup("/player/white");
+        public void getPlayerImage(boolean choice) {
+            tab = setup("/player/tab");
+            white = setup("/player/white");
+            Icon = setup("/player/cathead");
 
-        if(choice){
-            getCat1();
-        }else{
-            getCat2();
+            if(choice){
+                getCat1();
+            }else{
+                getCat2();
+            }
         }
-    }
 
     public void getCat1(){
         up1 = setup("/player/cat1_up_1");
