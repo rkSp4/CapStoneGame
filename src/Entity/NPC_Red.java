@@ -1,4 +1,4 @@
-/*package Entity;
+package Entity;
 
 import Main.GamePanel;
 import java.util.Random;
@@ -22,7 +22,6 @@ public class NPC_Red extends Entity{
         right1 = setup("/npc/red_right_1");
         right2 = setup("/npc/red_right_2");
     }
-
     public void setDialogue() {
         dialogue[0] = "Hey, watch where you are going- a cat!?";
         dialogue[1] = "What's a cat doing here?";
@@ -33,7 +32,6 @@ public class NPC_Red extends Entity{
         dialogue[2] = "Come here you!";
         dialogue[3] = "Hey wait come back!";
     }
-
     public void setAction() {
 
         actionLockCounter++;
@@ -62,4 +60,4 @@ public class NPC_Red extends Entity{
         super.speak();
     }
 }
-*/
+

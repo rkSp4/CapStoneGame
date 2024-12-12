@@ -1,4 +1,4 @@
-/*package monster;
+package monster;
 
 import Entity.Entity;
 import Main.GamePanel;
@@ -10,17 +10,20 @@ public class MON_Rat extends Entity {
     public MON_Rat(GamePanel gp) {
         super(gp);
         type = 2;
-        name = "Green Slime";
+        name = "Rat";
         speed = 1;
-        getImage();
         maxLife = 3;
         life = maxLife;
+
         solidArea.x = 3;
         solidArea.y = 18;
         solidArea.width = 42;
         solidArea.height = 30;
         SolidAreaDefaultX = solidArea.x;
         SolidAreaDefaultY = solidArea.y;
+        getImage();
+        speed = speed/2;
+
     }
     public void getImage() {
         up1 = setup("/monster/rat_up_1");
@@ -48,7 +51,7 @@ public class MON_Rat extends Entity {
             if (i > 50 && i <= 75) {
                 direction = "left";
             }
-            if (i > 75 && i <= 100) {
+            if (i > 75) {
                 direction = "right";
             }
             actionLockCounter = 0;
@@ -56,4 +59,3 @@ public class MON_Rat extends Entity {
     }
 }
 
- */

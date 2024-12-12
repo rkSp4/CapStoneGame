@@ -1,4 +1,4 @@
-/*package monster;
+package monster;
 
 import Entity.Entity;
 import Main.GamePanel;
@@ -9,23 +9,23 @@ public class MON_GreenSlime extends Entity {
 
     public MON_GreenSlime(GamePanel gp) {
         super(gp);
-
         type = 2;
         name = "Green Slime";
-        speed = 1;
-        getImage();
-        maxLife = 3;
+        speed = 0;
+        maxLife = 4;
         life = maxLife;
+
         solidArea.x = 3;
         solidArea.y = 18;
         solidArea.width = 42;
         solidArea.height = 30;
         SolidAreaDefaultX = solidArea.x;
         SolidAreaDefaultY = solidArea.y;
+        getImage();
     }
     public void getImage() {
         up1 = setup("/monster/greenslime_down_1");
-        up2 = setup("/monster/greenslime_down_1");
+        up2 = setup("/monster/greenslime_down_2");
         down1 = setup("/monster/greenslime_down_1");
         down2 = setup("/monster/greenslime_down_2");
         left1 = setup("/monster/greenslime_down_1");
@@ -50,11 +50,10 @@ public class MON_GreenSlime extends Entity {
             if (i > 50 && i <= 75) {
                 direction = "left";
             }
-            if (i > 75 && i <= 100) {
+            if (i > 75) {
                 direction = "right";
             }
             actionLockCounter = 0;
         }
     }
 }
- */

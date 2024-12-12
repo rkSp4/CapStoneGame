@@ -329,7 +329,7 @@ public class Player extends Entity{
                             gp.ui.showMessage("You need a key dawg! :/");
                         }
                         break;
-                    case "chest":
+                    case "Chest":
                         gp.obj/*[gp.currentMap]*/[i] = null;
                         gp.stopMusic();
                         gp.playSE(4);

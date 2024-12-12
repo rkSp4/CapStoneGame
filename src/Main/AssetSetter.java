@@ -1,13 +1,13 @@
 package Main;
 
 import Entity.NPC_Boy;
-//import Entity.NPC_Red;
-//import monster.MON_GreenSlime;
-//import monster.MON_Rat;
+import Entity.NPC_Red;
 import Object.OBJ_KEY;
 import Object.OBJ_DOOR;
 import Object.OBJ_BOOTS;
 import Object.OBJ_CHEST;
+import monster.MON_GreenSlime;
+import monster.MON_Rat;
 
 
 public class AssetSetter {
@@ -16,9 +16,7 @@ public class AssetSetter {
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
-
     }
-
     public void setObject() {
         //int mapNum = 0;
         //int i = 0;
@@ -28,8 +26,8 @@ public class AssetSetter {
         gp.obj/*[mapNum]*/[0].worldY = 7 * gp.tileSize;
 
         gp.obj/*[mapNum]*/[1] = new OBJ_KEY(gp);
-        gp.obj/*[mapNum]*/[1].worldX = 23 * gp.tileSize;
-        gp.obj/*[mapNum]*/[1].worldY = 40 * gp.tileSize;
+        gp.obj/*[mapNum]*/[1].worldX = 10 * gp.tileSize;
+        gp.obj/*[mapNum]*/[1].worldY = 59 * gp.tileSize;
 
         gp.obj/*[mapNum]*/[2] = new OBJ_KEY(gp);
         gp.obj/*[mapNum]*/[2].worldX = 33 * gp.tileSize;
@@ -55,9 +53,15 @@ public class AssetSetter {
         gp.obj/*[mapNum]*/[7].worldX = 37 * gp.tileSize;
         gp.obj/*[mapNum]*/[7].worldY = 42 * gp.tileSize;
 
+        gp.obj/*[mapNum]*/[8] = new OBJ_DOOR(gp);
+        gp.obj/*[mapNum]*/[8].worldX = 10 * gp.tileSize;
+        gp.obj/*[mapNum]*/[8].worldY = 63 * gp.tileSize;
+
+        gp.obj/*[mapNum]*/[9] = new OBJ_KEY(gp);
+        gp.obj/*[mapNum]*/[9].worldX = 33 * gp.tileSize;
+        gp.obj/*[mapNum]*/[9].worldY = 82 * gp.tileSize;
 
     }
-
     public void setNPC() {
         //int mapNum = 0;
         //int i = 0;
@@ -65,12 +69,10 @@ public class AssetSetter {
         gp.npc/*[mapNum]*/[0].worldX = gp.tileSize * 21;
         gp.npc/*[mapNum]*/[0].worldY = gp.tileSize * 21;
 
-        //  gp.npc/*[mapNum]*/[1] = new NPC_Red(gp);
-        //  gp.npc/*[mapNum]*/[1].worldX = gp.tileSize*25;
-        //  gp.npc/*[mapNum]*/[1].worldY = gp.tileSize*69;
+        gp.npc/*[mapNum]*/[1] = new NPC_Red(gp);
+        gp.npc/*[mapNum]*/[1].worldX = gp.tileSize*25;
+        gp.npc/*[mapNum]*/[1].worldY = gp.tileSize*69;
     }
-}
-    /*
     public void setMonster() {
 
         gp.monster[0] = new MON_GreenSlime(gp);
@@ -95,4 +97,4 @@ public class AssetSetter {
 
     }
 }
-*/
+

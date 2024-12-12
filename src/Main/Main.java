@@ -10,7 +10,7 @@ Main {
     window = new JFrame();
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.setResizable(false);
-    window.setTitle("Cat Collection");
+    window.setTitle("PawPaw Collection");
 
 
     GamePanel gamePanel = new GamePanel();
