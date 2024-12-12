@@ -11,6 +11,7 @@ import java.util.TimerTask;
 public class Player extends Entity{
 
 
+    public BufferedImage title;
     KeyHandler keyH;
 
     public final int screenX;
@@ -66,7 +67,7 @@ public class Player extends Entity{
     public void getPlayerImage(boolean choice) {
         tab = setup("/player/tab");
         white = setup("/player/white");
-
+        title = setup("/player/pawpaw");
         if(choice){
             getCat1();
         }else{
