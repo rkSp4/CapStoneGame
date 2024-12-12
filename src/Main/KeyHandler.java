@@ -124,7 +124,7 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_V) {
                 sprint = true;
-                gp.playSE(2);
+                gp.playSE(7);
             }
             if (code == KeyEvent.VK_ESCAPE) {
                 gp.gameState = gp.optionState;
